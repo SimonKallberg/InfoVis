@@ -51,7 +51,7 @@ def create_plot():
         ]
         graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
         
-        return render_template('index.html', plot=graphJSON)
+        return render_template('index_C.html', plot=graphJSON)
         #return graphJSON 
     elif "match2" in request.form:
         data = [
@@ -61,7 +61,7 @@ def create_plot():
         )
         ]
         graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
-        return render_template('index.html', plot=graphJSON)
+        return render_template('index_C.html', plot=graphJSON)
         #return graphJSON
     else:
         data = [
@@ -71,7 +71,7 @@ def create_plot():
         )
         ]
         graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
-        return render_template('index.html', plot=graphJSON)
+        return render_template('index_C.html', plot=graphJSON)
         #return graphJSON
 
     #graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)

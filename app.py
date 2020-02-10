@@ -3,6 +3,9 @@ import random
 import pandas as pd
 import numpy as np
 import json
+import plotly
+import plotly.graph_objs as go
+
 
 from flask import Flask, render_template, Response
 from flask import request
@@ -16,7 +19,7 @@ from matplotlib import pyplot as plt
 from math import pi
 
 app = Flask(__name__)
-df_csv = pd.read_csv('./matches_csv/testmatch2.csv', sep=';') # creating a sample dataframe
+df_csv = pd.read_csv('./matches_csv/testmatch1.csv', sep=';') # creating a sample dataframe
 df_csv['assists']
 df = pd.DataFrame({
 'group': ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -75,7 +78,7 @@ def indexstar():
     # Add legend
     plt.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
     plt.savefig('static/images/plot.png')
-    return render_template('index.html', url='/static/images/plot.png')
+    return render_template('index_starplot.html', url='/static/images/plot.png')
 
 
 
@@ -110,7 +113,7 @@ def create_plot():
         ]
         graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
         
-        return render_template('index.html', plot=graphJSON)
+        return render_template('index_C.html', plot=graphJSON)
         #return graphJSON 
     elif "match2" in request.form:
         data = [
@@ -120,7 +123,7 @@ def create_plot():
         )
         ]
         graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
-        return render_template('index.html', plot=graphJSON)
+        return render_template('index_C.html', plot=graphJSON)
         #return graphJSON
     else:
         data = [
@@ -130,7 +133,7 @@ def create_plot():
         )
         ]
         graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
-        return render_template('index.html', plot=graphJSON)
+        return render_template('index_C.html', plot=graphJSON)
         #return graphJSON
 
     #graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
