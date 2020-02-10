@@ -14,3 +14,6 @@ installerar bibliotek
 kräver import i själva python koden för att använda, import x as y betyder att vi kan använda y.function som syntax.
 
 pip list (lista över installerade libs i den nuvarande env).
+
+Om man ska dela projektet eller inte förstår varför det inte fungerar på sin andra dator:
+pip freeze > requirements.txt
