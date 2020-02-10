@@ -11,6 +11,8 @@ warnings.filterwarnings("ignore")
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-data_df = pd.read_csv('matches_csv/testmatch.csv')
+data_df = pd.read_csv('C:/Users/chris/OneDrive/Desktop/tnm048/InfoVis/matches_csv/testmatch.csv', sep=';')
 
-data_df.shape()
+print(data_df.shape)
+
+print(data_df.head)
