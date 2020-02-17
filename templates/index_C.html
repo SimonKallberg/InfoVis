@@ -20,28 +20,46 @@
   </div>
     <div class="row">
         <div class="col-md-6">
-
-
-            <div class="chart" id="bargraph">
-
-              <script>
-
-                  var graphs = {{plot | safe}};
-                  Plotly.plot('bargraph',graphs,{});
-              </script>
-
+          
           <form method="post">
           <input type="submit" name="match1" value="match1">
           <input type="submit" name="match2" value="match2">
           <input type="submit" name="wins" value="wins">
           <input type="submit" name="losses" value="losses">
           </form>
+          
+          <p> This is a graph about speed </p>
+            <div class="chart" id="bargraph">
+              </div>
+              
+               <p> This is a graph about time in air </p>
+              <div class="chart" id="bargraph2">
+                </div>
+               
+                 <p> This is a graph about defensive stats </p>
+                <div class="chart" id="bargraph3">
+                  </div>
+             
+            
+              <script>
 
-          <div class=
+                  var graph1 = {{plot1 | safe}};
+                  var graph2 = {{plot2| safe}};
+                  var graph3 = {{plot3| safe}};
+
+
+                  Plotly.plot('bargraph',graph1,{});
+                  Plotly.plot('bargraph2', graph2,{});
+                  Plotly.plot('bargraph3', graph3,{});
+              </script>
+
+          
+
             </div>
-        </div>
-    </div>
+            </div>
+      
 </div>
+
 
 </body>
 </html>
