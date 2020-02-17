@@ -2,19 +2,53 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>My First Dashboard</title>
+    <title>Starplot</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-         
-          
-            <div class="chart" id="bargraph">
 
- 
-                <img src={{url}} alt="Chart" height="auto" width="100%">
+          <form action="{{url_for('update_star_plot')}}" method="post">
+              <select name="Offensive">
+                <option value="goals">Goals</option>
+                <option value="shots">Shots</option>
+                <option value="count stolen big pads">Stolen big pads</option>
+              </select>
+              <br><br>
+              <select name="Defensive">
+                <option value="saves">Saves</option>
+                <option value="time most back">Time most back</option>
+                <option value="goals conceded while last defender">Last defender conceded</option>
+              </select>
+              <br><br>
+              <select name="Positioning">
+                <option value="percentage defensive third">% Defensive third</option>
+                <option value="percentage neutral third">% Neutral third</option>
+                <option value="percentage offensive third">% Offensive third</option>
+              </select>
+              <br><br>
+
+              <select name="Misc">
+                <option value="demos inflicted">Demos inflicted</option>
+                <option value="demos taken">Demos taken</option>
+                <option value="percentage high in air">%High in air</option>
+              </select>
+              <br><br>
+
+              <select name="Speed">
+                <option value="percentage supersonic speed">% Supersonic speed</option>
+                <option value="avg speed">Average speed</option>
+              </select>
+              <br><br>
+              <input type="submit" value="Update">
+            </form>
+
+
+            <div class="chart" id="bargraph">
+                <img src={{url}} alt="Chart" height="auto" width="30%">
             </div>
+
         </div>
     </div>
 </div>
