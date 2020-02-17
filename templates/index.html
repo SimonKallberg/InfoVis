@@ -2,33 +2,24 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>My First Dashboard</title>
-
+    <title>Rocket Rivals</title>
+    <title>Starplot</title>
+    <link rel = "stylesheet"
+    type = "text/css"
+    href = "./static/style.css" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-         
-          
-            <div class="chart" id="bargraph">
-              
-              <script>
-
-                  var graphs = {{plot | safe}};
-                  Plotly.plot('bargraph',graphs,{});
-              </script>
-
-          <form method="post">
-          <input type="submit" name="match1" value="match1">
-          <input type="submit" name="match2" value="match2">
-          </form>
-
-          <div class=
-            </div>
-        </div>
+    <div class="header">
+      <img src="./static/images/vitbg1.png" alt="icon">
+    </div>
+    <div class="searchArea">
+      <form action="{{url_for('home_page')}}" method="POST">
+      <label for="uname">Search for player:</label>
+      <input type="text" id="uname" name="uname"><br><br>
+      </form>
     </div>
 </div>
 

@@ -30,11 +30,11 @@ allmatches_CK_losses = {}
 kuzon = {}
 sneaky = {}
 
-@app.route('/star')
+@app.route('/starplot')
 def indexstar():
     return render_template('index_starplot.html', url='/static/images/plot.png')
 
-@app.route('/star', methods=["GET","POST"])
+@app.route('/starplot', methods=["GET","POST"])
 def update_star_plot():
     if request.method == 'POST':
         print("HEEEJ", file=sys.stderr)
@@ -51,6 +51,22 @@ def indexC():
     #return render_template('index.html', plot=bar)
 
 @app.route('/', methods=["GET", "POST"])
+def home():
+    return render_template('index.html', url='/static/images/plot.png')
+
+@app.route('/content', methods=["GET", "POST"])
+def content():
+    return render_template('content.html', url='/static/images/plot.png')
+
+@app.route('/kuzon', methods=["GET", "POST"])
+def home_page():
+    return render_template('index_homepage.html')
+
+@app.route('/index', methods=["GET", "POST"])
+def index_page():
+    return render_template('index_homepage.html')
+
+@app.route('/barcharts', methods=["GET", "POST"])
 def index():
     #bar = create_plot()
     read_data()

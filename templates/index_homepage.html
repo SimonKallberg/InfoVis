@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Starplot</title>
+    <link rel = "stylesheet"
+    type = "text/css"
+    href = "./static/style.css" />
+</head>
+<body>
+<div class="container">
+    <div class="introPage">
+      Hello Kuzon!
+    </div>
+    <div class="searchArea">
+      <form action="{{url_for('content')}}" method="POST">
+      <label for="uname">Search for player to compare against:</label>
+      <input type="text" id="uname" name="uname"><br><br>
+      </form>
+    </div>
+</div>
+
+</body>
+</html>
