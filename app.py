@@ -10,8 +10,6 @@ import plotly.graph_objs as go
 import logging
 import sys
 import os
-
-
 from flask import Flask, render_template, Response, redirect, url_for
 from flask import request
 from matplotlib import pyplot as plt
@@ -22,7 +20,7 @@ import math
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-numberofmatches = 10
+numberofmatches = 20
 allmatches = {}
 allmatches_CK = {}
 allmatches_CK_wins = {}
