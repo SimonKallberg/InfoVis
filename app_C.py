@@ -42,8 +42,11 @@ def create_plot2():
    
     df_win = pd.concat(allmatches_CK_wins)
     sneaky1 = df_win[df_win['player name'] == 'Sneakyb4stard']
+    kuzon1 = df_win[df_win['player name'] == 'Kuzon']
+
     df_lose = pd.concat(allmatches_CK_losses)
     sneaky2 = df_lose[df_lose['player name'] == 'Sneakyb4stard']
+    kuzon2 = df_lose[df_lose['player name'] == 'Kuzon']
     #sneaky1 = pd.concat(allmatches_CK_wins['player name'].str.contains('Sneakyb4stard'))
     #sneaky2 = pd.concat(allmatches_CK_losses['player name'].str.contains('Sneakyb4stard'))
     
@@ -139,7 +142,7 @@ def create_plot2():
         
         return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
         #return graphJSON 
-    elif "winsandlosses" in request.form:
+    elif "sneakywinsandlosses" in request.form:
         xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
 
         fig1 = go.Figure(data = [
@@ -208,6 +211,75 @@ def create_plot2():
         graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
         
         return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
+    elif "kuzonwinsandlosses" in request.form:
+        xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
+
+        fig1 = go.Figure(data = [
+        go.Bar(
+            name = "Wins",
+            x = [var1name, var2name, var3name],
+            #y=[18, 15, 20]
+            #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
+            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]      
+        ),
+        go.Bar(
+            name = "Losses",
+            x = [var1name, var2name, var3name],
+            #y=[18, 15, 20]
+            #y = [int(kuzon['percentage supersonic speed'].values), int(kuzon['percentage boost speed'].values), int(kuzon['percentage slow speed'].values)]
+            y = [int(kuzon2[var1name].mean()), int(kuzon2[var2name].mean()), int(kuzon2[var3name].mean())]
+            )
+        ])
+        fig1.update_layout(barmode='group')
+        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)   
+
+        #xdata2 = ['percentage defensive third', 'percentage neutral third', 'percentage offensive third']
+        var1name = 'percentage defensive third'
+        var2name = 'percentage neutral third'
+        var3name = 'percentage offensive third'
+        fig2 = go.Figure(data = [
+        go.Bar(
+            name = "Wins",
+            x = [var1name, var2name, var3name],
+            #y=[18, 15, 20]
+            #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
+            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]      
+        ),
+        go.Bar(
+            name = "Losses",
+            x = [var1name, var2name, var3name],
+            #y=[18, 15, 20]
+            #y = [int(kuzon['percentage supersonic speed'].values), int(kuzon['percentage boost speed'].values), int(kuzon['percentage slow speed'].values)]
+            y = [int(kuzon2[var1name].mean()), int(kuzon2[var2name].mean()), int(kuzon2[var3name].mean())]
+            )
+        ])
+        fig2.update_layout(barmode='group')
+        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)   
+
+        xdata3 = ['percentage on ground', 'percentage low in air', 'percentage high in air']
+        var1name = 'percentage on ground'
+        var2name = 'percentage low in air'
+        var3name = 'percentage high in air'
+        fig3 = go.Figure(data = [
+        go.Bar(
+            name = "Wins",
+            x = [var1name, var2name, var3name],
+            #y=[18, 15, 20]
+            #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
+            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]      
+        ),
+        go.Bar(
+            name = "Losses",
+            x = [var1name, var2name, var3name],
+            #y=[18, 15, 20]
+            #y = [int(kuzon['percentage supersonic speed'].values), int(kuzon['percentage boost speed'].values), int(kuzon['percentage slow speed'].values)]
+            y = [int(kuzon2[var1name].mean()), int(kuzon2[var2name].mean()), int(kuzon2[var3name].mean())]
+            )
+        ])
+        fig3.update_layout(barmode='group')
+        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
+        
+        return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)    
     elif "sneakylastgame" in request.form:
         sneaky1 = allmatches_CK[0]
         sneaky1 = sneaky1[sneaky1['player name'] == 'Sneakyb4stard']
@@ -283,17 +355,83 @@ def create_plot2():
         graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
         
         return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
-    else:
-        data = [
+    elif "kuzonlastgame" in request.form:
+        kuzon1 = allmatches_CK[0]
+        kuzon1 = kuzon1[kuzon1['player name'] == 'Kuzon']
+        xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
+        
+        fig1 = go.Figure(data = [
         go.Bar(
-            #x=allmatches[0]['player name'], # assign x as the dataframe column 'x'
-            #y=allmatches[0]['score']
-            x = allmatches_CK[0]['player name'],
-            y = allmatches_CK[0]['goals']
-        )
-        ]
-        graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
-        return render_template('index_C.html', plot1=graphJSON)
+            name = "Average stats",
+            x = [var1name, var2name, var3name],
+            #y=[18, 15, 20]
+            #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
+            y = [int(kuzon[var1name].mean()), int(kuzon[var2name].mean()), int(kuzon[var3name].mean())]      
+        ),
+        go.Bar(
+            name = "Last game",
+            x = xdata,
+            #y=[18, 15, 20]
+            #y = [int(kuzon['percentage supersonic speed'].values), int(kuzon['percentage boost speed'].values), int(kuzon['percentage slow speed'].values)]
+            y = [int(kuzon1[var1name].values), int(kuzon1[var2name].values), int(kuzon1[var3name].values)]
+            )
+        ])
+        fig1.update_layout(barmode='group')
+        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)   
+
+        xdata2 = ['percentage defensive third', 'percentage neutral third', 'percentage offensive third']
+        var1name = 'percentage defensive third'
+        var2name = 'percentage neutral third'
+        var3name = 'percentage offensive third'
+        fig2 = go.Figure(data = [
+        go.Bar(
+            name = "Average stats",
+            x = xdata2,
+            #y=[18, 15, 20]
+            y=[int(kuzon['percentage defensive third'].mean()), int(kuzon['percentage neutral third'].mean()), int(kuzon['percentage offensive third'].mean())]
+            
+            
+            
+        ),
+        go.Bar(
+            name = "Last game",
+            x = xdata2,
+            #y=[18, 15, 20]
+            y = [int(kuzon1[var1name].values), int(kuzon1[var2name].values), int(kuzon1[var3name].values)]
+            )
+        ])
+        fig2.update_layout(barmode='group')
+        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)   
+
+        xdata3 = ['percentage on ground', 'percentage low in air', 'percentage high in air']
+        var1name = 'percentage on ground'
+        var2name = 'percentage low in air'
+        var3name = 'percentage high in air'
+        fig3 = go.Figure(data = [
+        go.Bar(
+            name = "Average stats",
+            x = xdata3,
+            #y=[18, 15, 20]
+            y=[int(kuzon['percentage on ground'].mean()), int(kuzon['percentage low in air'].mean()), int(kuzon['percentage high in air'].mean())]
+            #y = [int(sneaky['percentage supersonic speed'].values), 15, 20]
+            #x=allmatches_CK_wins[0]['player name', 'percentage boost speed'], # assign x as the dataframe column 'x'
+            #x = xdata,
+            
+            
+        ),
+        go.Bar(
+            name = "Last game",
+            x = xdata3,
+            #y=[18, 15, 20]
+            y = [int(kuzon1[var1name].values), int(kuzon1[var2name].values), int(kuzon1[var3name].values)]
+            )
+        ])
+        fig3.update_layout(barmode='group')
+        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
+        
+        return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
+    else:
+        return render_template('bar_default.html')
 
 def create_plot():
     N = 40
@@ -345,8 +483,7 @@ def average(var, n):
 
 
 def read_data():
-
-     #listofzeros = [0] * numberofmatches
+    #listofzeros = [0] * numberofmatches
     #sneaky['totalspeed'], sneaky['totalboost'], sneaky['totalassist'], sneaky['totalscore'], sneaky['totalgoals'] = listofzeros
     #kuzon['totalspeed'], kuzon['totalboost'], kuzon['totalassist'], kuzon['totalscore'], kuzon['totalgoals'] = listofzeros
     sneakytotalspeed = 0
