@@ -39,6 +39,8 @@ def create_plot2():
     N = 40
     x = np.linspace(0, 1, N)
     y = np.random.randn(N)
+    sneaky = df[df['player name'] == 'Sneakyb4stard']
+    kuzon = df[df['player name'] == 'Kuzon']
     
     #go.Bar(name='SF Zoo', x=animals, y=[20, 14, 23]),
     #go.Bar(name='LA Zoo', x=animals, y=[12, 18, 29])
@@ -49,8 +51,7 @@ def create_plot2():
     if "wins" in request.form:
         xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
         #sneaky = allmatches_CK_wins[allmatches_CK_wins['player name'] == 'Sneakyb4stard']
-        sneaky = df[df['player name'] == 'Sneakyb4stard']
-        kuzon = df[df['player name'] == 'Kuzon']
+        
 
         print('test output: ' + str(allmatches_CK_wins[0]['percentage boost speed']), file=sys.stderr)
 
@@ -64,9 +65,7 @@ def create_plot2():
             y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
             #y = [int(sneaky['percentage supersonic speed'].values), 15, 20]
             #x=allmatches_CK_wins[0]['player name', 'percentage boost speed'], # assign x as the dataframe column 'x'
-            #x = xdata,
-            
-            
+            #x = xdata,      
         ),
         go.Bar(
             name = "kuzon",
@@ -164,7 +163,7 @@ def create_plot():
         ]
         graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)   
         
-        return render_template('index_C.html', plot=graphJSON)
+        return render_template('index_C.html', plot1=graphJSON)
         #return graphJSON 
     elif "match2" in request.form:
         data = [
