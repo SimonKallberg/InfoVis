@@ -2,64 +2,55 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Rocket Rivals</title>
-    <link rel = "stylesheet"
-    type = "text/css"
-    href = "./static/style.css" />
+    <title>My First Dashboard</title>
+
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 </head>
 <body>
 <div class="container">
-  <div class = "menu">
-    <div class="tab">
-      <button class="tablinks" onclick="location.href='index'">Search</button>
-      <button class="tablinks" onclick="location.href='starplot'">Star</button>
-      <button class="tablinks" onclick="location.href='barcharts'">Barcharts</button>
-    </div>
-  </div>
     <div class="row">
-    </div>
-      <div class="row">
-          <div class="col-md-6">
-
-            <form method="post">
-            <input type="submit" name="match1" value="match1">
-            <input type="submit" name="match2" value="match2">
-            <input type="submit" name="wins" value="wins">
-            <input type="submit" name="losses" value="losses">
-            </form>
-
-            <p> This is a graph about speed </p>
-              <div class="chart" id="bargraph">
-                </div>
-
-                 <p> This is a graph about time in air </p>
-                <div class="chart" id="bargraph2">
-                  </div>
-
-                   <p> This is a graph about defensive stats </p>
-                  <div class="chart" id="bargraph3">
-                    </div>
-
-
-                <script>
-
-                    var graph1 = {{plot1 | safe}};
-                    var graph2 = {{plot2| safe}};
-                    var graph3 = {{plot3| safe}};
-
-
-                    Plotly.plot('bargraph',graph1,{});
-                    Plotly.plot('bargraph2', graph2,{});
-                    Plotly.plot('bargraph3', graph3,{});
-                </script>
-
-
-
+        <div class="col-md-6">
+          
+          <form method="post">
+          <input type="submit" name="sneakylastgame" value="sneakylastgame">
+          <input type="submit" name="kuzonlastgame" value="kuzonlastgame">
+          <input type="submit" name="sneakyandkuzon" value="sneakyandkuzon">
+          <input type="submit" name="winsandlosses" value="winsandlosses">
+          </form>
+          
+          <p> This is a graph about speed </p>
+            <div class="chart" id="bargraph">
               </div>
-          </div>
+              
+               <p> This is a graph about time in air </p>
+              <div class="chart" id="bargraph2">
+                </div>
+               
+                 <p> This is a graph about defensive stats </p>
+                <div class="chart" id="bargraph3">
+                  </div>
+             
+            
+              <script>
+
+                  var graph1 = {{plot1 | safe}};
+                  var graph2 = {{plot2| safe}};
+                  var graph3 = {{plot3| safe}};
+
+
+                  Plotly.plot('bargraph',graph1,{});
+                  Plotly.plot('bargraph2', graph2,{});
+                  Plotly.plot('bargraph3', graph3,{});
+              </script>
+
+          
+
+            </div>
+            </div>
+      
 </div>
+
 
 </body>
 </html>
