@@ -74,7 +74,7 @@ def create_plot2():
     N = 40
     x = np.linspace(0, 1, N)
     y = np.random.randn(N)
-   
+
     df_win = pd.concat(allmatches_CK_wins)
     sneaky1 = df_win[df_win['player name'] == 'Sneakyb4stard']
     kuzon1 = df_win[df_win['player name'] == 'Kuzon']
@@ -84,13 +84,13 @@ def create_plot2():
     kuzon2 = df_lose[df_lose['player name'] == 'Kuzon']
     #sneaky1 = pd.concat(allmatches_CK_wins['player name'].str.contains('Sneakyb4stard'))
     #sneaky2 = pd.concat(allmatches_CK_losses['player name'].str.contains('Sneakyb4stard'))
-    
+
     df = pd.concat(allmatches_CK)
     #print('testmean' + str(sneaky1['score'].mean()), file=sys.stderr)
     print('sneaky1' + str(sneaky2['goals']), file=sys.stderr)
     #for i in range(0, numberofmatches):
         #print('testoutput' + str(allmatches_CK_wins[i]), file=sys.stderr)
-    
+
     sneaky = df[df['player name'] == 'Sneakyb4stard']
     kuzon = df[df['player name'] == 'Kuzon']
 
@@ -105,14 +105,14 @@ def create_plot2():
 
     if "sneakyandkuzon" in request.form:
         xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
-        
+
         fig1 = go.Figure(data = [
         go.Bar(
             name = "Sneaky",
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(sneaky[var1name].mean()), int(sneaky[var2name].mean()), int(sneaky[var3name].mean())]      
+            y = [int(sneaky[var1name].mean()), int(sneaky[var2name].mean()), int(sneaky[var3name].mean())]
         ),
         go.Bar(
             name = "Kuzon",
@@ -123,7 +123,7 @@ def create_plot2():
             )
         ])
         fig1.update_layout(barmode='group')
-        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata2 = ['percentage defensive third', 'percentage neutral third', 'percentage offensive third']
         fig2 = go.Figure(data = [
@@ -135,8 +135,8 @@ def create_plot2():
             #y = [int(sneaky['percentage supersonic speed'].values), 15, 20]
             #x=allmatches_CK_wins[0]['player name', 'percentage boost speed'], # assign x as the dataframe column 'x'
             #x = xdata,
-            
-            
+
+
         ),
         go.Bar(
             name = "kuzon",
@@ -146,7 +146,7 @@ def create_plot2():
             )
         ])
         fig2.update_layout(barmode='group')
-        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata3 = ['percentage on ground', 'percentage low in air', 'percentage high in air']
         fig3 = go.Figure(data = [
@@ -158,8 +158,8 @@ def create_plot2():
             #y = [int(sneaky['percentage supersonic speed'].values), 15, 20]
             #x=allmatches_CK_wins[0]['player name', 'percentage boost speed'], # assign x as the dataframe column 'x'
             #x = xdata,
-            
-            
+
+
         ),
         go.Bar(
             name = "kuzon",
@@ -169,10 +169,10 @@ def create_plot2():
             )
         ])
         fig3.update_layout(barmode='group')
-        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
-        
+        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
+
         return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
-        #return graphJSON 
+        #return graphJSON
     elif "sneakywinsandlosses" in request.form:
         xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
 
@@ -182,7 +182,7 @@ def create_plot2():
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(sneaky1[var1name].mean()), int(sneaky1[var2name].mean()), int(sneaky1[var3name].mean())]      
+            y = [int(sneaky1[var1name].mean()), int(sneaky1[var2name].mean()), int(sneaky1[var3name].mean())]
         ),
         go.Bar(
             name = "Losses",
@@ -193,7 +193,7 @@ def create_plot2():
             )
         ])
         fig1.update_layout(barmode='group')
-        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
 
         #xdata2 = ['percentage defensive third', 'percentage neutral third', 'percentage offensive third']
         var1name = 'percentage defensive third'
@@ -205,7 +205,7 @@ def create_plot2():
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(sneaky1[var1name].mean()), int(sneaky1[var2name].mean()), int(sneaky1[var3name].mean())]      
+            y = [int(sneaky1[var1name].mean()), int(sneaky1[var2name].mean()), int(sneaky1[var3name].mean())]
         ),
         go.Bar(
             name = "Losses",
@@ -216,7 +216,7 @@ def create_plot2():
             )
         ])
         fig2.update_layout(barmode='group')
-        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata3 = ['percentage on ground', 'percentage low in air', 'percentage high in air']
         var1name = 'percentage on ground'
@@ -228,7 +228,7 @@ def create_plot2():
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(sneaky1[var1name].mean()), int(sneaky1[var2name].mean()), int(sneaky1[var3name].mean())]      
+            y = [int(sneaky1[var1name].mean()), int(sneaky1[var2name].mean()), int(sneaky1[var3name].mean())]
         ),
         go.Bar(
             name = "Losses",
@@ -239,8 +239,8 @@ def create_plot2():
             )
         ])
         fig3.update_layout(barmode='group')
-        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
-        
+        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
+
         return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
     elif "kuzonwinsandlosses" in request.form:
         xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
@@ -251,7 +251,7 @@ def create_plot2():
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]      
+            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]
         ),
         go.Bar(
             name = "Losses",
@@ -262,7 +262,7 @@ def create_plot2():
             )
         ])
         fig1.update_layout(barmode='group')
-        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
 
         #xdata2 = ['percentage defensive third', 'percentage neutral third', 'percentage offensive third']
         var1name = 'percentage defensive third'
@@ -274,7 +274,7 @@ def create_plot2():
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]      
+            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]
         ),
         go.Bar(
             name = "Losses",
@@ -285,7 +285,7 @@ def create_plot2():
             )
         ])
         fig2.update_layout(barmode='group')
-        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata3 = ['percentage on ground', 'percentage low in air', 'percentage high in air']
         var1name = 'percentage on ground'
@@ -297,7 +297,7 @@ def create_plot2():
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]      
+            y = [int(kuzon1[var1name].mean()), int(kuzon1[var2name].mean()), int(kuzon1[var3name].mean())]
         ),
         go.Bar(
             name = "Losses",
@@ -308,19 +308,19 @@ def create_plot2():
             )
         ])
         fig3.update_layout(barmode='group')
-        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
-        
-        return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)    
+        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
+
+        return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
     elif "sneakylastgame" in request.form:
         xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
-        
+
         fig1 = go.Figure(data = [
         go.Bar(
             name = "Average stats",
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(sneaky[var1name].mean()), int(sneaky[var2name].mean()), int(sneaky[var3name].mean())]      
+            y = [int(sneaky[var1name].mean()), int(sneaky[var2name].mean()), int(sneaky[var3name].mean())]
         ),
         go.Bar(
             name = "Last game",
@@ -331,7 +331,7 @@ def create_plot2():
             )
         ])
         fig1.update_layout(barmode='group')
-        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata2 = ['percentage defensive third', 'percentage neutral third', 'percentage offensive third']
         var1name = 'percentage defensive third'
@@ -343,9 +343,9 @@ def create_plot2():
             x = xdata2,
             #y=[18, 15, 20]
             y=[int(sneaky['percentage defensive third'].mean()), int(sneaky['percentage neutral third'].mean()), int(sneaky['percentage offensive third'].mean())]
-            
-            
-            
+
+
+
         ),
         go.Bar(
             name = "Last game",
@@ -355,7 +355,7 @@ def create_plot2():
             )
         ])
         fig2.update_layout(barmode='group')
-        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata3 = ['percentage on ground', 'percentage low in air', 'percentage high in air']
         var1name = 'percentage on ground'
@@ -370,8 +370,8 @@ def create_plot2():
             #y = [int(sneaky['percentage supersonic speed'].values), 15, 20]
             #x=allmatches_CK_wins[0]['player name', 'percentage boost speed'], # assign x as the dataframe column 'x'
             #x = xdata,
-            
-            
+
+
         ),
         go.Bar(
             name = "Last game",
@@ -381,20 +381,20 @@ def create_plot2():
             )
         ])
         fig3.update_layout(barmode='group')
-        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
-        
+        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
+
         return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
     elif "kuzonlastgame" in request.form:
         
         xdata = ['percentage supersonic speed', 'percentage boost speed', 'percentage slow speed']
-        
+
         fig1 = go.Figure(data = [
         go.Bar(
             name = "Average stats",
             x = [var1name, var2name, var3name],
             #y=[18, 15, 20]
             #y=[int(sneaky['percentage supersonic speed'].values), int(sneaky['percentage boost speed'].values), int(sneaky['percentage slow speed'].values)]
-            y = [int(kuzon[var1name].mean()), int(kuzon[var2name].mean()), int(kuzon[var3name].mean())]      
+            y = [int(kuzon[var1name].mean()), int(kuzon[var2name].mean()), int(kuzon[var3name].mean())]
         ),
         go.Bar(
             name = "Last game",
@@ -405,7 +405,7 @@ def create_plot2():
             )
         ])
         fig1.update_layout(barmode='group')
-        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata2 = ['percentage defensive third', 'percentage neutral third', 'percentage offensive third']
         var1name = 'percentage defensive third'
@@ -417,9 +417,9 @@ def create_plot2():
             x = xdata2,
             #y=[18, 15, 20]
             y=[int(kuzon['percentage defensive third'].mean()), int(kuzon['percentage neutral third'].mean()), int(kuzon['percentage offensive third'].mean())]
-            
-            
-            
+
+
+
         ),
         go.Bar(
             name = "Last game",
@@ -429,7 +429,7 @@ def create_plot2():
             )
         ])
         fig2.update_layout(barmode='group')
-        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)   
+        graphJSON2 = json.dumps(fig2, cls=plotly.utils.PlotlyJSONEncoder)
 
         xdata3 = ['percentage on ground', 'percentage low in air', 'percentage high in air']
         var1name = 'percentage on ground'
@@ -444,8 +444,8 @@ def create_plot2():
             #y = [int(sneaky['percentage supersonic speed'].values), 15, 20]
             #x=allmatches_CK_wins[0]['player name', 'percentage boost speed'], # assign x as the dataframe column 'x'
             #x = xdata,
-            
-            
+
+
         ),
         go.Bar(
             name = "Last game",
@@ -455,8 +455,8 @@ def create_plot2():
             )
         ])
         fig3.update_layout(barmode='group')
-        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)   
-        
+        graphJSON3 = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
+
         return render_template('index_C.html', plot1=graphJSON, plot2=graphJSON2, plot3=graphJSON3)
     elif "showmeall" in request.form:
 
@@ -631,18 +631,9 @@ def create_star_plot():
 
     #print(kuzonDF_mean, file=sys.stderr)
     newDF = [kuzonDF_mean, sneakyDF_mean]
-    print('kuzmeans' + '\n' + str(kuzonDF_mean), file=sys.stderr)
-    print('snakmeans' + '\n' + str(sneakyDF_mean), file=sys.stderr)
-    print('NEWDF' + '\n' + str(newDF), file=sys.stderr)
-
-
-    df_kuzon = df_csv[df_csv['player name'].str.contains('Kuzon')]
-    df_sneaky = df_csv[df_csv['player name'].str.contains('Sneakyb4stard')]
-    frames = [df_kuzon, df_sneaky]
-    print('dfkuz' + '\n' + str(df_kuzon), file=sys.stderr)
     df_csv_new = pd.concat(newDF, axis=1)
     df_csv_new = df_csv_new.T
-    #df_csv_new2 = df_csv_new2.reset_index()
+    df_csv_new = df_csv_new.reset_index()
     print('NYA' + '\n' +  str(df_csv_new), file=sys.stderr)
 
     if var5 == 'avg speed':
@@ -662,8 +653,9 @@ def create_star_plot():
     var4: df_csv_new[var4],
     var5: df_csv_new[var5]
     })
-    #TAKEN FROM https://python-graph-gallery.com/391-radar-chart-with-several-individuals/
+    #Base taken from https://python-graph-gallery.com/391-radar-chart-with-several-individuals/
     #Since matplotlib didnt have one implemented
+    #have made several changes for our project
     # ------- PART 1: Create background
     # number of variable
 
