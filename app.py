@@ -22,7 +22,7 @@ import math
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-numberofmatches = 2
+numberofmatches = 10
 allmatches = {}
 allmatches_CK = {}
 allmatches_CK_wins = {}
@@ -37,7 +37,7 @@ def indexstar():
 @app.route('/starplot', methods=["GET","POST"])
 def update_star_plot():
     if request.method == 'POST':
-        print("HEEEJ", file=sys.stderr)
+        read_data()
         create_star_plot()
         return redirect(url_for('update_star_plot'))
 
@@ -255,12 +255,30 @@ def create_star_plot():
     if var5 is None:
         var5 = 'percentage supersonic speed'
 
-    df_csv = pd.read_csv('./matches_csv/testmatch0.csv', sep=';') # creating a sample dataframe
+    df_csv = pd.read_csv('./matches_csv/testmatch0.csv', sep=';') # creating a sample dataframe0
+    kuzonAvgVar1 = 0
+    mainDF = pd.concat(allmatches_CK)
+    kuzonDF = mainDF[mainDF['player name'] == 'Kuzon']
+    sneakyDF = mainDF[mainDF['player name'] == 'Sneakyb4stard']
+    kuzonDF_mean = kuzonDF.mean()
+    sneakyDF_mean = sneakyDF.mean()
+
+    #print(kuzonDF_mean, file=sys.stderr)
+    newDF = [kuzonDF_mean, sneakyDF_mean]
+    print('kuzmeans' + '\n' + str(kuzonDF_mean), file=sys.stderr)
+    print('snakmeans' + '\n' + str(sneakyDF_mean), file=sys.stderr)
+    print('NEWDF' + '\n' + str(newDF), file=sys.stderr)
+
+
     df_kuzon = df_csv[df_csv['player name'].str.contains('Kuzon')]
     df_sneaky = df_csv[df_csv['player name'].str.contains('Sneakyb4stard')]
     frames = [df_kuzon, df_sneaky]
-    df_csv_new = pd.concat(frames)
-    df_csv_new = df_csv_new.reset_index()
+    print('dfkuz' + '\n' + str(df_kuzon), file=sys.stderr)
+    df_csv_new = pd.concat(newDF, axis=1)
+    df_csv_new = df_csv_new.T
+    #df_csv_new2 = df_csv_new2.reset_index()
+    print('NYA' + '\n' +  str(df_csv_new), file=sys.stderr)
+
     if var5 == 'avg speed':
         df_csv_new[var5] = df_csv_new[var5]/250
     if var5 == 'percentage supersonic speed':
@@ -321,17 +339,17 @@ def create_star_plot():
     # Ind1
     values=df.loc[0].drop('group').values.flatten().tolist()    #make a list of all values
     values += values[:1]    #add first value at the end
-    ax.plot(angles, values, linewidth=1, linestyle='solid', label=df_csv_new['player name'].loc[0])
+    ax.plot(angles, values, linewidth=1, linestyle='solid', label='Kuzon')
     ax.fill(angles, values, 'b', alpha=0.1)
 
     # Ind2
     values=df.loc[1].drop('group').values.flatten().tolist()
     values += values[:1]
-    ax.plot(angles, values, linewidth=1, linestyle='solid', label=df_csv_new['player name'].loc[1])
+    ax.plot(angles, values, linewidth=1, linestyle='solid', label='Sneaky')
     ax.fill(angles, values, 'r', alpha=0.1)
 
     # Add legend
-    plt.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
+    plt.legend(loc='upper right', bbox_to_anchor=(0.01, 0.01))
     plt.savefig('static/images/plot.png')
     plt.clf()
 
@@ -363,7 +381,7 @@ def read_data():
 
             #print('test2: ' + str(sneaky['goals conceded'].values), file=sys.stderr)
             #print('test3:' + str(max(otherteamgoals['goals conceded'].values)), file=sys.stderr)
-            if(max(otherteamgoals['goals conceded'].values) < sneaky['goals conceded'].values):
+            if(max(otherteamgoals['goals conceded'].values) > sneaky['goals conceded'].values):
                 allmatches_CK_wins[countwins] = pd.concat(frames)
                 countwins += 1
                 #allmatches_CK_wins.append(pd.concat(frames), ignore_index = True)
@@ -373,7 +391,7 @@ def read_data():
                 countlosses += 1
         else:
             otherteamgoals = tempmatch[tempmatch['color'].str.contains('blue')]
-            if(max(otherteamgoals['goals conceded'].values) < sneaky['goals conceded'].values):
+            if(max(otherteamgoals['goals conceded'].values) > sneaky['goals conceded'].values):
                 allmatches_CK_wins[countwins] = pd.concat(frames)
                 countwins += 1
                 #allmatches_CK_wins.append(pd.concat(frames), ignore_index = True)
@@ -395,6 +413,7 @@ def read_data():
     #end of forloop
     #allmatches_CK_losses.reset_index
     #allmatches_CK_wins.reset_index
+    #sneakytotalscore = mean[allmatches_CK['player name'] == sn]
     sneakyaveragespeed = average(sneakytotalspeed, numberofmatches)
     kuzonaveragespeed = average(kuzontotalspeed, numberofmatches)
     Sneakyaveragescore = average(sneakytotalscore, numberofmatches)
