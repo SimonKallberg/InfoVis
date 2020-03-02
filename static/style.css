@@ -6,8 +6,63 @@
   flex-direction: column;
 }
 
+.imgContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.col-md-6 {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 img {
 
+}
+h2,h3 {
+  font-family: sans-serif;
+}
+h4 {
+  font-size: 20px;
+  font-family: sans-serif;
+  margin-right: 10px;
+}
+
+.infoText {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.starForm {
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.starSelect {
+  display: flex;
+    align-self: center;
+  height: 30px;
+  margin: 5px;
+}
+
+.inputStar {
+  display: flex;
+  justify-content: center;
+  height: 30px;
+  width: auto;
+  align-self: center;
 }
 
 .header {
@@ -36,14 +91,7 @@ img {
   background-color: white;
 }
 
-.introPage {
-  display: flex;
-  width: 100%;
-  font-size: 30px;
-  font-family: sans-serif;
-  flex-direction: column;
-  justify-content: center;
-}
+
 
 #wallOfContent {
   margin-top: 5px;
@@ -92,4 +140,89 @@ img {
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
+}
+
+.lowerButton {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.styled {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: rgba(220, 0, 0, 1);
+    background-image: linear-gradient(to top left,
+                                      rgba(0, 0, 0, .2),
+                                      rgba(0, 0, 0, .2) 30%,
+                                      rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+.styled:hover {
+    background-color: rgba(255, 0, 0, 1);
+}
+
+.styled:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+.basicInfo {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  margin: 10px;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+.GCicon {
+  display: flex;
+  width: 40%;
+  height: auto;
+}
+.avatarPic {
+margin: 10px;
+}
+
+.rankText {
+  font-size: 20px;
+  font-family: sans-serif;
+}
+.rankinfo {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.introPage {
+  display: flex;
+  margin-left: 0;
+  flex-direction: column;
+  justify-content: center;
+}
+.ranked {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.titleText {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.smallerText {
+  font-size: 15px;
+  font-family: sans-serif;
+  margin: 0;
 }

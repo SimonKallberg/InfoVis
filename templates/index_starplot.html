@@ -16,46 +16,65 @@
       <button class="tablinks" onclick="location.href='barcharts'">Barcharts</button>
     </div>
   </div>
+  <div class="infoText">
+    <h2>This is a star plot of averages over 100 games for both players.</h2>
+    <p class="smallerText">If you wanna display a specific correlation you can use the dropdown menues to change stats to visualize. We have also included some correlations we think are interesting just press the "Visualize for me" button!</p>
+  </div>
     <div class="row">
         <div class="col-md-6">
-          <form action="{{url_for('update_star_plot')}}" method="post">
-              <select name="Offensive">
+          <form action="{{url_for('update_star_plot')}}" method="post" class="starForm">
+              <h4>Stat 1: </h4>
+              <select name="Offensive" class="starSelect">
                 <option value="goals">Goals</option>
                 <option value="shots">Shots</option>
-                <option value="count stolen big pads">Stolen big pads</option>
+                <option value="assists">Assists</option>
+                <option value="shooting percentage">Shooting percentage</option>
               </select>
               <br><br>
-              <select name="Defensive">
+              <h4>Stat 2: </h4>
+              <select name="Defensive" class="starSelect">
                 <option value="saves">Saves</option>
                 <option value="time most back">Time most back</option>
-                <option value="goals conceded while last defender">Last defender conceded</option>
               </select>
               <br><br>
-              <select name="Positioning">
+              <h4>Stat 3: </h4>
+              <select name="Positioning" class="starSelect">
                 <option value="percentage defensive third">% Defensive third</option>
                 <option value="percentage neutral third">% Neutral third</option>
                 <option value="percentage offensive third">% Offensive third</option>
+                <option value="percentage behind ball">% behind the ball</option>
               </select>
               <br><br>
-
-              <select name="Misc">
+              <h4>Stat 4: </h4>
+              <select name="Misc" class="starSelect">
                 <option value="demos inflicted">Demos inflicted</option>
                 <option value="demos taken">Demos taken</option>
-                <option value="percentage high in air">%High in air</option>
+                <option value="count stolen big pads">Stolen big pads</option>
               </select>
               <br><br>
-
-              <select name="Speed">
+              <h4>Stat 5: </h4>
+              <select name="Speed" class="starSelect">
                 <option value="percentage supersonic speed">% Supersonic speed</option>
                 <option value="avg speed">Average speed</option>
+                <option value="score">Score</option>
+                <option value="bpm">Boost used per minute</option>
               </select>
               <br><br>
-              <input type="submit" value="Update">
+              <input type="submit" value="Update" class = "inputStar">
             </form>
         </div>
-        <div class="chart" id="bargraph">
-            <img src={{url}} alt="Chart" height="auto" width="30%">
+        <div class="imgContainer">
+            <img src={{url}} alt="Chart">
+            <img src={{url2}} alt="Chart" onerror="this.style.visibility = 'hidden'">
         </div>
+        <div class="lowerButton">
+          <form action="{{url_for('own_star_plots')}}" method="post">
+          <button class="favorite styled"
+            type="submit">
+              VISUALIZE FOR ME :D
+          </button>
+          </form>
+      </div>
     </div>
 </div>
 
