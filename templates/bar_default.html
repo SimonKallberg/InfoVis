@@ -3,30 +3,43 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>My First Dashboard</title>
+    <link rel = "stylesheet"
+    type = "text/css"
+    href = "./static/style.css" />
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <div class="row">
+  <div class = "menu">
+    <div class="tab">
+      <button class="tablinks" onclick="location.href='index'">Home</button>
+      <button class="tablinks" onclick="location.href='starplot'">Star</button>
+      <button class="tablinks" onclick="location.href='barcharts'">Barcharts</button>
+    </div>
+  </div>
+  <div class="bargraphcontainer"
+      <div class="row">
         <div class="col-md-6">
-          
+
           <form method="post">
-          <input type="submit" name="sneakylastgame" value="sneakylastgame">
-          <input type="submit" name="kuzonlastgame" value="kuzonlastgame">
-          <input type="submit" name="sneakyandkuzon" value="sneakyandkuzon">
-          <input type="submit" name="kuzonwinsandlosses" value="kuzonwinsandlosses">
-          <input type="submit" name="sneakywinsandlosses" value="sneakywinsandlosses">
-          <input type="submit" name="showmeall" value="showmeall">
+          <input class = "barbuttons" type="submit" name="sneakylastgame" value="sneakylastgame">
+          <input class = "barbuttons" type="submit" name="kuzonlastgame" value="kuzonlastgame">
+          <input class = "barbuttons" type="submit" name="sneakyandkuzon" value="sneakyandkuzon">
+          <input class = "barbuttons" type="submit" name="kuzonwinsandlosses" value="kuzonwinsandlosses">
+          <input class = "barbuttons" type="submit" name="sneakywinsandlosses" value="sneakywinsandlosses">
+          <input class = "barbuttons" type="submit" name="EverystatKuzon" value="EverystatKuzon">
+          <input class = "barbuttons" type="submit" name="EverystatSneaky" value="EverystatSneaky">
           </form>
-          
-         <h1> Choose what graph you want to show </h1>
-          
+
+
+         <h1> Choose what graph you want to show! </h1>
+
 
             </div>
             </div>
-      
+    </div>
 </div>
 
 
