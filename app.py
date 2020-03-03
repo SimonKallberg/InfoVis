@@ -986,7 +986,7 @@ def create_star_plot(var1, var2, var3,var4,var5, name):
     ax.fill(angles, values, 'r', alpha=0.1)
 
     # Add legend
-    plt.legend(loc='lower right', bbox_to_anchor=(0.01, 0.01))
+    plt.legend(loc='lower right', bbox_to_anchor=(1.0, 0.8))
     plt.savefig("static/images/plot" + str(name) + ".png")
     plt.clf()
 

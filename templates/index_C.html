@@ -19,51 +19,41 @@
     </div>
   </div>
   <div class="bargraphcontainer">
+    <div class="row">
         <div class="col-md-6">
-
           <form method="post">
-          <input class = "barbuttons" type="submit" name="sneakylastgame" value="sneakylastgame">
-          <input class = "barbuttons" type="submit" name="kuzonlastgame" value="kuzonlastgame">
-          <input class = "barbuttons" type="submit" name="sneakyandkuzon" value="sneakyandkuzon">
-          <input class = "barbuttons" type="submit" name="kuzonwinsandlosses" value="kuzonwinsandlosses">
-          <input class = "barbuttons" type="submit" name="sneakywinsandlosses" value="sneakywinsandlosses">
-          <input class = "barbuttons" type="submit" name="EverystatKuzon" value="EverystatKuzon">
-          <input class = "barbuttons" type="submit" name="EverystatSneaky" value="EverystatSneaky">
+            <input class = "barbuttons" type="submit" name="sneakylastgame" value="sneakylastgame">
+            <input class = "barbuttons" type="submit" name="kuzonlastgame" value="kuzonlastgame">
+            <input class = "barbuttons" type="submit" name="sneakyandkuzon" value="sneakyandkuzon">
+            <input class = "barbuttons" type="submit" name="kuzonwinsandlosses" value="kuzonwinsandlosses">
+            <input class = "barbuttons" type="submit" name="sneakywinsandlosses" value="sneakywinsandlosses">
+            <input class = "barbuttons" type="submit" name="EverystatKuzon" value="EverystatKuzon">
+            <input class = "barbuttons" type="submit" name="EverystatSneaky" value="EverystatSneaky">
           </form>
-
           <p>{{ data }}</p>
-
           <!--<p>{{data}}</p>-->
-
           <p> Speed comparison </p>
             <div class="chart" id="bargraph">
-              </div>
+            </div>
 
-               <p> time in air comparison </p>
-              <div class="chart" id="bargraph2">
-                </div>
+            <p> time in air comparison </p>
+            <div class="chart" id="bargraph2">
+            </div>
 
-                 <p> defensive stats comparison </p>
-                <div class="chart" id="bargraph3">
-                  </div>
-
-
-              <script>
-
-                  var graph1 = {{plot1 | safe}};
-                  var graph2 = {{plot2| safe}};
-                  var graph3 = {{plot3| safe}};
-
-
-                  Plotly.plot('bargraph',graph1,{});
-                  Plotly.plot('bargraph2', graph2,{});
-                  Plotly.plot('bargraph3', graph3,{});
-              </script>
-
-
-
+            <p> defensive stats comparison </p>
+            <div class="chart" id="bargraph3">
+            </div>
+            <script>
+                var graph1 = {{plot1 | safe}};
+                var graph2 = {{plot2| safe}};
+                var graph3 = {{plot3| safe}};
+                Plotly.plot('bargraph',graph1,{});
+                Plotly.plot('bargraph2', graph2,{});
+                Plotly.plot('bargraph3', graph3,{});
+            </script>
             </div>
           </div>
+      </div>
 </div>
 
 
