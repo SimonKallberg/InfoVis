@@ -9,9 +9,36 @@
 </head>
 <body>
 <div class="container">
-    <div class="introPage">
-      Hello Kuzon!
+    <div class="basicInfo">
+      <div class="avatarPic">
+        <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/32/32ec9ce83e5f19f387cf99e525a586402385adbd_full.jpg"/>
+      </div>
+      <div class="introPage">
+        <p class="titleText">Hello Kuzon!</p>
+        <p class="smallerText">Rocket Rivals offer you a way to compare average data from your games.</p>
+
+      </div>
     </div>
+
+
+    <div class="rankinfo">
+      <div class="ranked">
+        <p class="rankText">Rank in 1v1:<p>
+        <img class="GCicon" src="https://ballchasing.com/static/ranks/19.png">
+        <p class="rankText">Grand Champion<p>
+      </div>
+      <div class="ranked">
+        <p class="rankText">Rank in 2v2:<p>
+        <img class="GCicon" src="https://ballchasing.com/static/ranks/19.png">
+        <p class="rankText">Grand Champion<p>
+      </div>
+      <div class="ranked">
+        <p class="rankText">Rank in 3v3:<p>
+        <img class="GCicon" src="https://ballchasing.com/static/ranks/19.png">
+        <p class="rankText">Grand Champion<p>
+      </div>
+    </div>
+
     <div class="searchArea">
       <form action="{{url_for('content')}}" method="POST">
       <label for="uname">Search for player to compare against:</label>

@@ -30,16 +30,29 @@ sneaky = {}
 
 @app.route('/starplot')
 def indexstar():
-    return render_template('index_starplot.html', url='/static/images/plot.png')
+    return render_template('index_starplot.html', url='/static/images/plotsolo.png')
 
 @app.route('/starplot', methods=["GET","POST"])
 def update_star_plot():
     if request.method == 'POST':
         read_data()
-        create_star_plot()
+        variables_for_star()
+        #create_star_plot()
+        #create_star_plot('shots', 'shooting percentage', 'bpm', "percentage supersonic speed", "avg speed")
         return redirect(url_for('update_star_plot'))
+    return render_template('index_starplot.html', url='/static/images/plotsolo.png')
 
-    return render_template('index_starplot.html', url='/static/images/plot.png')
+@app.route('/starplot_own', methods=["GET","POST"])
+def own_star_plots():
+    if request.method == 'POST':
+        read_data()
+        #variables_for_star()
+        #create_star_plot()
+        create_star_plot('shots', 'shooting percentage', 'bpm', "percentage supersonic speed", "avg speed", "def")
+        create_star_plot('saves', 'score', 'percentage defensive third', "percentage behind ball", "assists", "def2")
+        return redirect(url_for('own_star_plots'))
+    return render_template('index_starplot.html', url='/static/images/plotdef.png', url2='/static/images/plotdef2.png')
+
 
 
 @app.route('/C', methods=["GET", "POST"])
@@ -869,7 +882,7 @@ def create_plot():
 
     #return graphJSON
 
-def create_star_plot():
+def variables_for_star():
     var1 = request.form.get('Offensive')
     if var1 is None:
         var1 = 'shots'
@@ -882,43 +895,45 @@ def create_star_plot():
     var4 = request.form.get('Misc')
     if var4 is None:
         var4 = 'demos inflicted'
-
     var5 = request.form.get('Speed')
     if var5 is None:
         var5 = 'percentage supersonic speed'
+    create_star_plot(var1, var2, var3, var4, var5, "solo")
 
+def create_star_plot(var1, var2, var3,var4,var5, name):
     df_csv = pd.read_csv('./matches_csv/testmatch0.csv', sep=';') # creating a sample dataframe0
-    kuzonAvgVar1 = 0
     mainDF = pd.concat(allmatches_CK)
     kuzonDF = mainDF[mainDF['player name'] == 'Kuzon']
     sneakyDF = mainDF[mainDF['player name'] == 'Sneakyb4stard']
     kuzonDF_mean = kuzonDF.mean()
     sneakyDF_mean = sneakyDF.mean()
 
-    #print(kuzonDF_mean, file=sys.stderr)
-    newDF = [kuzonDF_mean, sneakyDF_mean]
+    average_df = pd.read_csv('./matches_csv/average.csv', sep=';')
+    print("first avg" + '\n' + str(average_df), file=sys.stderr)
+    average_df = average_df.mean()  #have same index value
+    print("AVERAGE DF" + '\n'+ str(average_df), file=sys.stderr)
+    newDF = [kuzonDF_mean, sneakyDF_mean, average_df]
     df_csv_new = pd.concat(newDF, axis=1)
     df_csv_new = df_csv_new.T
     df_csv_new = df_csv_new.reset_index()
+    df_csv_test = df_csv_new
     print('NYA' + '\n' +  str(df_csv_new), file=sys.stderr)
-
-    if var5 == 'avg speed':
-        df_csv_new[var5] = df_csv_new[var5]/250
-    if var5 == 'percentage supersonic speed':
-        df_csv_new[var5] = df_csv_new[var5]/2
-    if var2 == "goals conceded while last defender":
-        var2name = "Last def. when conceded"
-    else:
-        var2name = var2
+    df_csv_test = df_csv_test.apply(pd.to_numeric, errors='coerce')
+    df_csv_test = df_csv_test.dropna(axis='columns')
+    #df_csv_test = df_csv_test.reset_index()
+    df_csv_test.loc[3] = df_csv_test.iloc[0] / df_csv_test.iloc[2]
+    df_csv_test.loc[4] = df_csv_test.iloc[1] / df_csv_test.iloc[2]
+    print('TEST: ' +  str(df_csv_test), file=sys.stderr)
 
     df = pd.DataFrame({
-    'group': ['A', 'B'],
-    var1: df_csv_new[var1],
-    var2name: df_csv_new[var2],
-    var3: df_csv_new[var3]/10,
-    var4: df_csv_new[var4],
-    var5: df_csv_new[var5]
+    'group': ['A', 'B', 'C', 'D', 'E'],
+    "1. " + var1: df_csv_test[var1],
+    "2. " + var2: df_csv_test[var2],
+    "3. " + var3: df_csv_test[var3],
+    "4. " + var4: df_csv_test[var4],
+    "5. " + var5: df_csv_test[var5]
     })
+
     #Base taken from https://python-graph-gallery.com/391-radar-chart-with-several-individuals/
     #Since matplotlib didnt have one implemented
     #have made several changes for our project
@@ -942,17 +957,10 @@ def create_star_plot():
     # Draw one axe per variable + add labels labels yet
     plt.xticks(angles[:-1], categories)
 
-    yTickValues = df.max()
-    maxValue = yTickValues.drop(['group'])
-    maxValue = maxValue.max()
-
-    maxValue = math.ceil(maxValue / 2.) * 2
-    print(maxValue, file=sys.stderr)
-
     # Draw ylabels
     ax.set_rlabel_position(0)
-    plt.yticks([1,maxValue/4,maxValue/2,3*maxValue/4,maxValue], ["1",maxValue/4,maxValue/2,3*maxValue/4,maxValue], color="grey", size=7)
-    plt.ylim(0,maxValue)
+    plt.yticks([0.5,1,2,3], ["0.5","1","2","3"], color="grey", size=7)
+    plt.ylim(0,3)
 
 
     # ------- PART 2: Add plots
@@ -961,20 +969,25 @@ def create_star_plot():
     # I don't do a loop, because plotting more than 3 groups makes the chart unreadable
 
     # Ind1
-    values=df.loc[0].drop('group').values.flatten().tolist()    #make a list of all values
+    values=df.loc[3].drop('group').values.flatten().tolist()    #make a list of all values
     values += values[:1]    #add first value at the end
     ax.plot(angles, values, linewidth=1, linestyle='solid', label='Kuzon')
     ax.fill(angles, values, 'b', alpha=0.1)
 
     # Ind2
-    values=df.loc[1].drop('group').values.flatten().tolist()
+    values=df.loc[4].drop('group').values.flatten().tolist()
     values += values[:1]
     ax.plot(angles, values, linewidth=1, linestyle='solid', label='Sneaky')
     ax.fill(angles, values, 'r', alpha=0.1)
 
+    # Ind3
+    values = [1.0, 1.0, 1.0,1.0,1.0,1.0]
+    ax.plot(angles, values, linewidth=1, linestyle='solid', label='Average')
+    ax.fill(angles, values, 'r', alpha=0.1)
+
     # Add legend
-    plt.legend(loc='upper right', bbox_to_anchor=(0.01, 0.01))
-    plt.savefig('static/images/plot.png')
+    plt.legend(loc='lower right', bbox_to_anchor=(0.01, 0.01))
+    plt.savefig("static/images/plot" + str(name) + ".png")
     plt.clf()
 
 def average(var, n):
