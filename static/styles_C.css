@@ -9,7 +9,12 @@
 img {
 
 }
-
+p {
+  font-family: sans-serif;
+}
+h1 {
+  font-family: sans-serif;
+}
 .header {
   display: flex;
   width: 100%;
