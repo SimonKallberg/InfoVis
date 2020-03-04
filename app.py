@@ -926,15 +926,17 @@ def create_procomparison():
     sneakyDF = mainDF[mainDF['player name'] == 'Sneakyb4stard']
     kuzonDF_mean = kuzonDF.mean()
     sneakyDF_mean = sneakyDF.mean()
-    newDF = [kuzonDF_mean, sneakyDF_mean, average_df, average_chausette, average_sypical]
+    newDF = [average_sypical, average_df, average_chausette, kuzonDF_mean, sneakyDF_mean]
 
     df_csv_new = pd.concat(newDF, axis=1)
     df_csv_new = df_csv_new.T
     df_csv_new = df_csv_new.reset_index()
     df_csv_test = df_csv_new
-    print('NYA' + '\n' +  str(df_csv_new), file=sys.stderr)
-    df_csv_test = df_csv_test.apply(pd.to_numeric, errors='coerce')
+    df_csv_test = df_csv_test[df_csv_test != 1]
     df_csv_test = df_csv_test.dropna(axis='columns')
+    print('NYA' + '\n' +  str(df_csv_test), file=sys.stderr)
+    #df_csv_test = df_csv_test.apply(pd.to_numeric, errors='coerce')
+    #df_csv_test = df_csv_test.dropna(axis='columns')
     #df_csv_test = df_csv_test.reset_index()
     #df_csv_test.loc[3] = df_csv_test.iloc[0] / df_csv_test.iloc[2]
     #df_csv_test.loc[4] = df_csv_test.iloc[1] / df_csv_test.iloc[2]
@@ -942,26 +944,100 @@ def create_procomparison():
 
     testsneaky = [sneakyDF_mean, kuzonDF_mean]
     testkuzon = [kuzonDF_mean, average_chausette]
+    #testsneaky = pd.concat(testsneaky1, axis=1)
+    #testsneaky = testsneaky.T
+    #testsneaky = testsneaky.reset_index()
+    #df_csv_test = testsneaky
+    df_csv_test = df_csv_test[df_csv_test != 1]
+    df_csv_test = df_csv_test.dropna(axis='columns')
+    df_csv_test = abs(df_csv_test.pct_change(axis='columns'))
+    df_csv_test = df_csv_test[df_csv_test < 1]
+    df_csv_test = df_csv_test.dropna(axis='columns')
+    df_csv_pca = df_csv_test
+    #df_csv_test = df_csv_test.mean(numeric_only=True)
+    #sneakycomp = testsneaky
     sneakycomp = pd.concat(testsneaky, axis=1)
     sneakycomp = sneakycomp.T
     sneakycomp = sneakycomp.reset_index()
 
-    print('testcomp: ' + str(sneakycomp['score']), file=sys.stderr)
+    print('newtestcomp: ' + str(df_csv_test), file=sys.stderr)
+    print('newtestcomp1: ' + str(df_csv_test.iloc[1,:].mean()), file=sys.stderr)
+    print('newtestcomp2: ' + str(df_csv_test.iloc[2,:].mean()), file=sys.stderr)
+    print('newtestcomp3: ' + str(df_csv_test.iloc[3,:].mean()), file=sys.stderr)
+    print('newtestcomp4: ' + str(df_csv_test.iloc[4,:].mean()), file=sys.stderr)
+
+
     #sneakycomp = sneakycomp.apply(lambda x: x/x.sum(), axis=1)
 
-    print('testcomp: ' + str(abs(sneakycomp.pct_change())), file=sys.stderr)
+    sneakycomp = sneakycomp.dropna()
+    #print('testcomp: ' + str(abs(sneakycomp.pct_change())), file=sys.stderr)
 
     sneakycomparechausette = abs(sneakycomp.pct_change())
-    sneakycomparechausette = sneakycomparechausette.apply(pd.to_numeric, errors='coerce')
-    sneakycomparechausette = sneakycomparechausette.dropna(axis='columns')
+    #sneakycomparechausette = sneakycomparechausette.apply(pd.to_numeric, errors='coerce')
+    #sneakycomparechausette = sneakycomparechausette.dropna(axis='columns')
 
     #print('check for 1s :' + str(sneakycomparechausette['shots conceded']), file=sys.stderr)
     #sneakycomparechausette = sneakycomparechausette[sneakycomparechausette != 1]
-    sneakycomparechausette = sneakycomparechausette.astype('float')
+    #sneakycomparechausette = sneakycomparechausette.astype('float')
+    #sneakycomparechausette = sneakycomparechausette.dropna()
     sneaky_finalmatch = sneakycomparechausette.mean()
-    print('testmatch: ' + str(sneaky_finalmatch) + 'shape' + str(sneaky_finalmatch.head()), file=sys.stderr)
+    #sneaky_finalmatch
+    #print('testmatch: ' + str(sneaky_finalmatch) + 'shape' + str(sneaky_finalmatch.head()), file=sys.stderr)
+    returnstring = "percentage difference(mean) between kuzon and Sypical is: " + str(df_csv_test.iloc[3,:].mean()) #+ "<br>" + "hej"
+    returnstring2 = "percentage difference(mean) between Sneaky and Sypical is: " + str(df_csv_test.iloc[4,:].mean()) #+ "<br>" + "hej"
+    returnstring3 = "percentage difference(median) between kuzon and Sypical is: " + str(df_csv_test.iloc[3,:].median()) #+ "<br>" + "hej"
+    returnstring4 = "percentage difference(median) between Sneaky and Sypical is: " + str(df_csv_test.iloc[4,:].median()) #+ "<br>" + "hej"
+    returnstring5 = "percentage difference(variance) between kuzon and Sypical is: " + str(df_csv_test.iloc[3,:].var()) #+ "<br>" + "hej"
+    returnstring6 = "percentage difference(variance) between Sneaky and Sypical is: " + str(df_csv_test.iloc[4,:].var()) #+ "<br>" + "hej"
 
-    return render_template('propage.html')
+    from sklearn.decomposition import PCA
+    from sklearn.preprocessing import StandardScaler
+    #x = df_csv_new.loc[:,:].str.contains('score').drop()
+    x = df_csv_pca.iloc[:, 2:].values
+    #y = df_csv_pca.iloc[:, 1].values
+    #y = df_csv_pca[['goals']]
+
+
+    ## Test for PCA -> plot
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+
+    x = StandardScaler().fit_transform(x)
+
+    pca = PCA(n_components=2)
+    principalComponents = pca.fit_transform(x)
+    principalDF = pd.DataFrame(data = principalComponents, columns = ['pc1', 'pc2'])
+    finalDF = pd.concat([principalDF, df_csv_new[['goals']]], axis=1)
+
+    print('newtestcomp4: ' + str(finalDF), file=sys.stderr)
+
+    fig = plt.figure(figsize = (8,8))
+    ax = fig.add_subplot(1,1,1)
+    #xs = range(100)
+    #ys = [random.randint(1,50) for x in xs]
+    ax.scatter(finalDF.loc[:, 'pc1']
+    , finalDF.loc[:, 'pc2'])
+    #ax.plot(xs,ys)
+    #ax.set_xlabel('Principal Component 1', fontsize = 15)
+    #ax.set_ylabel('Principal Component 2', fontsize = 15)
+    #ax.set_title('2 component PCA', fontsize = 20)
+    #targets = ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+    #colors = ['r', 'g', 'b']
+    #for target, color in zip(targets,colors):
+    #    indicesToKeep = finalDF['goals'] == target
+    #    ax.scatter(finalDF.loc[indicesToKeep, 'pc1']
+    #           , finalDF.loc[indicesToKeep, 'pc2']
+    #           , c = color
+    #           , s = 50)
+    #ax.legend(targets)
+    #ax.grid()
+    from flask import Response
+    import io
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    #return Response(output.getvalue(), mimetype='image/png')
+
+    return render_template('propage.html', data=returnstring, data2=returnstring2, data3=returnstring3, data4=returnstring4, data5=returnstring5, data6=returnstring6)
 
 
 def create_star_plot(var1, var2, var3,var4,var5, name):
