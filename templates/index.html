@@ -7,21 +7,32 @@
     <link rel = "stylesheet"
     type = "text/css"
     href = "./static/style.css" />
+    <link rel = "stylesheet"
+    type = "text/css"
+    href = "./static/styleeffects.css" />
+    <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
 </head>
 <body>
 <div class="container">
     <div class="header">
       <img src="./static/images/vitbg1.png" alt="icon">
     </div>
+
     <div class="searchArea">
-      <form action="{{url_for('home_page')}}" method="POST">
-      <label for="uname">Search for player:</label>
-      <input type="text" id="uname" name="uname"><br><br>
-      </form>
+          <div id="colinput-effect" class="col-3 input-effect">
+            <label>Search for player:</label>
+              <form action="{{url_for('home_page')}}" method="POST">
+                <input class="effect-18" type="text" placeholder="">
+                <label for="uname">Find player:</label>
+                <span class="focus-border">
+                <i></i>
+              </form>
+          </div>
     </div>
 </div>
-
+    <script src="./static/scripts.js" type="text/javascript"></script>
 </body>
 </html>

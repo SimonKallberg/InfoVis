@@ -6,23 +6,38 @@
     <link rel = "stylesheet"
     type = "text/css"
     href = "./static/style.css" />
+<script src="./static/scripts.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="container">
+  <!--
+  <div class="topIcon">
+  <img src="./static/images/icon.png" id="icon">
+</div> -->
   <div class = "menu">
     <div class="tab">
-      <button class="tablinks" onclick="location.href='index'">Home</button>
-      <button class="tablinks" onclick="location.href='starplot'">Star</button>
+
+      <button class="tablinks" onclick="location.href='starplot'">Starplot</button>
       <button class="tablinks" onclick="location.href='barcharts'">Barcharts</button>
+      <button class="tablinks" onclick="location.href='/'">Home</button>
+      <button class="tablinks" onclick="location.href='index'">Kuzons profile</button>
+      <button class="tablinks" onclick="location.href='content'">Sneakybastards profile</button>
     </div>
   </div>
   <div class="infoText">
-    <h2>This is a star plot of averages over 100 games for both players.</h2>
-    <p class="smallerText">If you wanna display a specific correlation you can use the dropdown menues to change stats to visualize. We have also included some correlations we think are interesting just press the "Visualize for me" button!</p>
+    <div class="upperBoxStar">
+    <div class="introPageStar">
+      <p class="titleText">Star plot of average stats of the games togheter.</p>
+      <p class="smallerText">If you wanna display a specific correlation you can use the dropdown menues to change stats to visualize.</p>
+      <p class="smallerText"> We have also included some correlations we think are interesting just press the "Visualize for me" button!</p>
+    </div>
+    </div>
   </div>
+  <div class="starcontainer">
     <div class="row">
         <div class="col-md-6">
           <form action="{{url_for('update_star_plot')}}" method="post" class="starForm">
+            <div class="selects">
               <h4>Stat 1: </h4>
               <select name="Offensive" class="starSelect">
                 <option value="goals">Goals</option>
@@ -31,40 +46,46 @@
                 <option value="shooting percentage">Shooting percentage</option>
               </select>
               <br><br>
+              <div id="boxstat2">
               <h4>Stat 2: </h4>
-              <select name="Defensive" class="starSelect">
-                <option value="saves">Saves</option>
-                <option value="time most back">Time most back</option>
+              <select id="stat2" name='Defensive' class="starSelect" onchange="selectFunction(this.value);this.form.submit();">
+                  <option value="saves">Saves</option>
+                  <option value="bpm">Boost used per minute</option>
               </select>
+              </div>
+
               <br><br>
+              <div id="boxstat3">
               <h4>Stat 3: </h4>
-              <select name="Positioning" class="starSelect">
+              <select name="Positioning" class="starSelect" onchange="selectFunction(this.value);this.form.submit();">
                 <option value="percentage defensive third">% Defensive third</option>
                 <option value="percentage neutral third">% Neutral third</option>
                 <option value="percentage offensive third">% Offensive third</option>
                 <option value="percentage behind ball">% behind the ball</option>
               </select>
-              <br><br>
+              </div>
+            </div>
+            <div class="selects">
               <h4>Stat 4: </h4>
               <select name="Misc" class="starSelect">
                 <option value="demos inflicted">Demos inflicted</option>
                 <option value="demos taken">Demos taken</option>
                 <option value="count stolen big pads">Stolen big pads</option>
               </select>
-              <br><br>
+              <br></br>
               <h4>Stat 5: </h4>
               <select name="Speed" class="starSelect">
                 <option value="percentage supersonic speed">% Supersonic speed</option>
                 <option value="avg speed">Average speed</option>
-                <option value="score">Score</option>
-                <option value="bpm">Boost used per minute</option>
+                <option value="score" selected>Score</option>
               </select>
               <br><br>
               <input type="submit" value="Update" class = "inputStar">
+            </div>
             </form>
         </div>
         <div class="imgContainer">
-            <img src={{url}} alt="Chart">
+            <img src={{url}}>
             <img src={{url2}} alt="Chart" onerror="this.style.visibility = 'hidden'">
         </div>
         <div class="lowerButton">
@@ -76,6 +97,7 @@
           </form>
       </div>
     </div>
+  </div>
 </div>
 
 </body>
