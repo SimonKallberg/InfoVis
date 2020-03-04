@@ -16,6 +16,11 @@ from matplotlib import pyplot as plt
 from math import pi
 import math
 
+import matplotlib
+import matplotlib.pyplot as plt
+from math import pi
+import seaborn as sns
+import sklearn as sklearn
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -83,6 +88,10 @@ def index():
     read_data()
     return create_plot2()
     #return render_template('index.html', plot=bar)
+@app.route('/procomparison', methods=["GET", "POST"])
+def comparisonpage():
+    read_data()
+    return create_procomparison()
 def create_plot2():
     N = 40
     x = np.linspace(0, 1, N)
@@ -899,6 +908,61 @@ def variables_for_star():
     if var5 is None:
         var5 = 'percentage supersonic speed'
     create_star_plot(var1, var2, var3, var4, var5, "solo")
+def create_procomparison():
+    average_chausette = pd.read_csv('./matches_csv/Chausette45.csv', sep=';')
+    print("first avg" + '\n' + str(average_chausette), file=sys.stderr)
+    average_chausette = average_chausette.mean()  #have same index value
+    print("AVERAGE DF" + '\n'+ str(average_chausette), file=sys.stderr)
+
+    average_df = pd.read_csv('./matches_csv/average.csv', sep=';')
+    average_df = average_df.mean()  #have same index value
+
+
+    average_sypical = pd.read_csv('./matches_csv/Sypical.csv', sep=';')
+    average_sypical = average_sypical.mean()  #have same index value
+
+    mainDF = pd.concat(allmatches_CK)
+    kuzonDF = mainDF[mainDF['player name'] == 'Kuzon']
+    sneakyDF = mainDF[mainDF['player name'] == 'Sneakyb4stard']
+    kuzonDF_mean = kuzonDF.mean()
+    sneakyDF_mean = sneakyDF.mean()
+    newDF = [kuzonDF_mean, sneakyDF_mean, average_df, average_chausette, average_sypical]
+
+    df_csv_new = pd.concat(newDF, axis=1)
+    df_csv_new = df_csv_new.T
+    df_csv_new = df_csv_new.reset_index()
+    df_csv_test = df_csv_new
+    print('NYA' + '\n' +  str(df_csv_new), file=sys.stderr)
+    df_csv_test = df_csv_test.apply(pd.to_numeric, errors='coerce')
+    df_csv_test = df_csv_test.dropna(axis='columns')
+    #df_csv_test = df_csv_test.reset_index()
+    #df_csv_test.loc[3] = df_csv_test.iloc[0] / df_csv_test.iloc[2]
+    #df_csv_test.loc[4] = df_csv_test.iloc[1] / df_csv_test.iloc[2]
+    #print('TEST: ' +  str(df_csv_test['score']), file=sys.stderr)
+
+    testsneaky = [sneakyDF_mean, kuzonDF_mean]
+    testkuzon = [kuzonDF_mean, average_chausette]
+    sneakycomp = pd.concat(testsneaky, axis=1)
+    sneakycomp = sneakycomp.T
+    sneakycomp = sneakycomp.reset_index()
+
+    print('testcomp: ' + str(sneakycomp['score']), file=sys.stderr)
+    #sneakycomp = sneakycomp.apply(lambda x: x/x.sum(), axis=1)
+
+    print('testcomp: ' + str(abs(sneakycomp.pct_change())), file=sys.stderr)
+
+    sneakycomparechausette = abs(sneakycomp.pct_change())
+    sneakycomparechausette = sneakycomparechausette.apply(pd.to_numeric, errors='coerce')
+    sneakycomparechausette = sneakycomparechausette.dropna(axis='columns')
+
+    #print('check for 1s :' + str(sneakycomparechausette['shots conceded']), file=sys.stderr)
+    #sneakycomparechausette = sneakycomparechausette[sneakycomparechausette != 1]
+    sneakycomparechausette = sneakycomparechausette.astype('float')
+    sneaky_finalmatch = sneakycomparechausette.mean()
+    print('testmatch: ' + str(sneaky_finalmatch) + 'shape' + str(sneaky_finalmatch.head()), file=sys.stderr)
+
+    return render_template('propage.html')
+
 
 def create_star_plot(var1, var2, var3,var4,var5, name):
     df_csv = pd.read_csv('./matches_csv/testmatch0.csv', sep=';') # creating a sample dataframe0

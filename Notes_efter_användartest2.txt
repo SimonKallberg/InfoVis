@@ -1,0 +1,52 @@
+average -> average player
+Visualize for me inte jätteförståelig
+
+Mapping behöver bli bättre på starplot eller bara ha klara starplot
+rankdistribution behöver ha klarare infotext. Fattades inte att det var procent av alla spelare
+titlar lite otydligt i speed. titlar oklart generellt(ty icke insatt).  
+demos -> demolition 
+Kuzon bästa spelaren.  
+
+Lite svårt att veta vilken del av webbsidan han skulle hitta information. 
+
+
+Alex:
+Kuzonpage: kan söka på någon annan ser det ut som, ser ut som jag inte kan göra något annat. 
+
+Skriva att man ska söka efter annan att jämföra med. 
+
+Starplot: man kan välja lite vad man ska visa för variabler. Lyckas bra med uppgiften. 
+Visualize for me: Kuzon har massa fler assist, sneaky har mindre än average. 
+otydlig knapp, förstod inte vad den var. Läste inte texten innan han tryckte. 
+
+Barchart: Tydligt med färger, tydligt med titlar. 
+
+Starploten känns tydlig, ju längre ut på plotten desto mer av den variablen. Gröna är average stats. skalning: Skalningen var förståelig och han läste av det korrekt. 
+
+Tycker att välja egna är nice, om han vill ha både goal shots så går inte det. 
+Time trial: gick bra men här märkte vi samma problem som ovan. 
+Positionering: Riktigt bra analys, hittade såfort han gick över till barcharts. 
+Snabbhet: gick snabbt. 
+Väldigt average både två, vi blev lika. Kuzon bättre på demos. 
+
+Jonas(rocket league spelare): 
+Sökte på någon annan, Roligt med Hello. 
+Han gissar på att % är på hela playerbase. 
+Rank in 1v1 borde vara större. 
+Time in air
+Verkade vara osäker på vad han hade valt för något senaste. 
+Glömmer bort vad det är han kollar på. 
+Klart och man ser skillnader i statsen. 
+Blev klart såfort han testade both players. 
+Färgerna är lite otydliga ty teamcolours. 
+starplotten var snygg, här ser han skitbra över kuzons stats. 
+Vad gör visualize for me? starplot of the games together. nej han förstår inte vad knappen gör. anledning till att det är 2 nu är bara för att visa mig mer grejer. 
+Tycker det är bra med dropdowns. Tar tid med att kolla över mappningen över variablerna i starplot. 
+bpm -> boost per minute. 
+Titlarna är förståeliga. 
+Kuzon har bättre bpm men sneaky har bättre stolen big pads. 
+på vinsterna spenderar sneaky mkt tid i defensiven. 
+Averagespeed : jättelika. använde starplot. 
+Kuzon är bäst enligt dessa stats. 
+Nja looks
+Improvement drag and drop för stats. 
