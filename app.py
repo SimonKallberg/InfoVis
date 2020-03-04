@@ -977,12 +977,12 @@ def create_star_plot(var1, var2, var3,var4,var5, name):
     # Ind2
     values=df.loc[4].drop('group').values.flatten().tolist()
     values += values[:1]
-    ax.plot(angles, values, linewidth=1, linestyle='solid', label='Sneaky')
+    ax.plot(angles, values, linewidth=1, linestyle='solid', label='Sneakybastard')
     ax.fill(angles, values, 'r', alpha=0.1)
 
     # Ind3
     values = [1.0, 1.0, 1.0,1.0,1.0,1.0]
-    ax.plot(angles, values, linewidth=1, linestyle='solid', label='Average')
+    ax.plot(angles, values, linewidth=1, linestyle='solid', label='Average player')
     ax.fill(angles, values, 'r', alpha=0.1)
 
     # Add legend

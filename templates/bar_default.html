@@ -14,31 +14,30 @@
 <div class="container">
   <div class = "menu">
     <div class="tab">
-      <button class="tablinks" onclick="location.href='index'">Home</button>
-      <button class="tablinks" onclick="location.href='starplot'">Star</button>
+      <button class="tablinks" onclick="location.href='starplot'">Starplot</button>
       <button class="tablinks" onclick="location.href='barcharts'">Barcharts</button>
+      <button class="tablinks" onclick="location.href='/'">Home</button>
+      <button class="tablinks" onclick="location.href='index'">Kuzons profile</button>
+      <button class="tablinks" onclick="location.href='content'">Sneakybastards profile</button>
     </div>
   </div>
   <div class="bargraphcontainer"
       <div class="row">
         <div class="col-md-6">
-
-          <form method="post">
-          <input class = "barbuttons" type="submit" name="sneakylastgame" value="sneakylastgame">
-          <input class = "barbuttons" type="submit" name="kuzonlastgame" value="kuzonlastgame">
-          <input class = "barbuttons" type="submit" name="sneakyandkuzon" value="sneakyandkuzon">
-          <input class = "barbuttons" type="submit" name="kuzonwinsandlosses" value="kuzonwinsandlosses">
-          <input class = "barbuttons" type="submit" name="sneakywinsandlosses" value="sneakywinsandlosses">
-          <input class = "barbuttons" type="submit" name="EverystatKuzon" value="EverystatKuzon">
-          <input class = "barbuttons" type="submit" name="EverystatSneaky" value="EverystatSneaky">
-          </form>
-
-
-         <h1> Choose what graph you want to show! </h1>
-
-
-            </div>
-            </div>
+          <div class="barhomepagebox">
+           <p class="titleText"> Choose what graph you want to show! </p>
+           <form method="post">
+             <input class = "barbuttons" type="submit" name="sneakylastgame" value="Sneakybastards last game">
+             <input class = "barbuttons" type="submit" name="kuzonlastgame" value="Kuzons last game">
+             <input class = "barbuttons" type="submit" name="sneakyandkuzon" value="Both players">
+             <input class = "barbuttons" type="submit" name="kuzonwinsandlosses" value="Kuzons win/loss">
+             <input class = "barbuttons" type="submit" name="sneakywinsandlosses" value="Sneakybastards win/loss">
+             <input class = "barbuttons" type="submit" name="EverystatKuzon" value="All stats for Kuzon">
+             <input class = "barbuttons" type="submit" name="EverystatSneaky" value="All stats for Sneakybastard">
+           </form>
+       </div>
+     </div>
+      </div>
     </div>
 </div>
 

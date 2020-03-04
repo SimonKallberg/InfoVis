@@ -6,10 +6,14 @@
     <link rel = "stylesheet"
     type = "text/css"
     href = "./static/style.css" />
+    <link rel = "stylesheet"
+    type = "text/css"
+    href = "./static/styleeffects.css" />
 </head>
 <body>
 <div class="container">
     <div class="basicInfo">
+      <div class="upperBox">
       <div class="avatarPic">
         <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/32/32ec9ce83e5f19f387cf99e525a586402385adbd_full.jpg"/>
       </div>
@@ -18,32 +22,47 @@
         <p class="smallerText">Rocket Rivals offer you a way to compare average data from your games.</p>
 
       </div>
+      </div>
     </div>
 
 
     <div class="rankinfo">
+      <div class="middleBar">
+      <div class="titleBar">
+      <p class="titleText">Rank distribution</p>
+      </div>
+      <div class="rankicons">
       <div class="ranked">
-        <p class="rankText">Rank in 1v1:<p>
-        <img class="GCicon" src="https://ballchasing.com/static/ranks/19.png">
-        <p class="rankText">Grand Champion<p>
+        <p class="rankText">Rank in 1v1:</p>
+        <img class="GCicon" src="https://ballchasing.com/static/ranks/17.png">
+        <p class="rankText">Champion II (1.01%)</p>
       </div>
       <div class="ranked">
-        <p class="rankText">Rank in 2v2:<p>
+        <p class="rankText">Rank in 2v2:</p>
         <img class="GCicon" src="https://ballchasing.com/static/ranks/19.png">
-        <p class="rankText">Grand Champion<p>
+        <p class="rankText">Grand Champion (0.44%)</p>
       </div>
       <div class="ranked">
-        <p class="rankText">Rank in 3v3:<p>
+        <p class="rankText">Rank in 3v3:</p>
         <img class="GCicon" src="https://ballchasing.com/static/ranks/19.png">
-        <p class="rankText">Grand Champion<p>
+        <p class="rankText">Grand Champion (0.42%)</p>
       </div>
+    </div>
+  </div>
     </div>
 
     <div class="searchArea">
-      <form action="{{url_for('content')}}" method="POST">
-      <label for="uname">Search for player to compare against:</label>
-      <input type="text" id="uname" name="uname"><br><br>
-      </form>
+      <div class="searchBox">
+      <div id="colinput-effect" class="col-3 input-effect">
+        <label>Search for player to compare stats with:</label>
+          <form action="{{url_for('content')}}" method="POST">
+            <input class="effect-18" type="text" placeholder="">
+            <label for="uname">Find player:</label>
+            <span class="focus-border">
+            <i></i>
+          </form>
+      </div>
+    </div>
     </div>
 </div>
 
