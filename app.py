@@ -950,10 +950,11 @@ def create_procomparison():
     #df_csv_test = testsneaky
     df_csv_test = df_csv_test[df_csv_test != 1]
     df_csv_test = df_csv_test.dropna(axis='columns')
+    df_csv_pca = df_csv_test
     df_csv_test = abs(df_csv_test.pct_change(axis='columns'))
     df_csv_test = df_csv_test[df_csv_test < 1]
     df_csv_test = df_csv_test.dropna(axis='columns')
-    df_csv_pca = df_csv_test
+
     #df_csv_test = df_csv_test.mean(numeric_only=True)
     #sneakycomp = testsneaky
     sneakycomp = pd.concat(testsneaky, axis=1)
@@ -994,9 +995,9 @@ def create_procomparison():
     from sklearn.preprocessing import StandardScaler
     #x = df_csv_new.loc[:,:].str.contains('score').drop()
     x = df_csv_pca.iloc[:, 2:].values
-    #y = df_csv_pca.iloc[:, 1].values
+    y = df_csv_pca.iloc[:, 1].values
     #y = df_csv_pca[['goals']]
-
+    print('PCAtest: ' + str(df_csv_pca), file=sys.stderr)
 
     ## Test for PCA -> plot
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -1004,10 +1005,13 @@ def create_procomparison():
 
     x = StandardScaler().fit_transform(x)
 
+
     pca = PCA(n_components=2)
     principalComponents = pca.fit_transform(x)
     principalDF = pd.DataFrame(data = principalComponents, columns = ['pc1', 'pc2'])
-    finalDF = pd.concat([principalDF, df_csv_new[['goals']]], axis=1)
+    targets = ['Sypical', 'Average player', 'Chausette45', 'Kuzon', 'Sneakybastard']
+    newddF = pd.DataFrame(targets, columns = ['player'])
+    finalDF = pd.concat([principalDF, newddF], axis=1)
 
     print('newtestcomp4: ' + str(finalDF), file=sys.stderr)
 
@@ -1015,29 +1019,80 @@ def create_procomparison():
     ax = fig.add_subplot(1,1,1)
     #xs = range(100)
     #ys = [random.randint(1,50) for x in xs]
-    ax.scatter(finalDF.loc[:, 'pc1']
-    , finalDF.loc[:, 'pc2'])
+
+    #colors = ['r']
+    ax.set_xlabel('Principal Component 1', fontsize = 15)
+    ax.set_ylabel('Principal Component 2', fontsize = 15)
+    ax.set_title('PCA over average stats for n=5 players', fontsize = 20)
+    targets = ['Sypical', 'Average player', 'Chausette45', 'Kuzon', 'Sneakybastard']
+    colors = ['r', 'g', 'b', 'c', 'k']
+    counter = 0
+    #for target, color in zip(targets, colors):
+        #indicesToKeep = finalDF.iloc[:,1] == target
+
+#funkar med detta som är utkommenterat som en string men fick det att funka med en for-loop ist.
+    """
+    ax.scatter(finalDF.loc[0, 'pc1']
+    , finalDF.loc[0, 'pc2'],
+    label=targets[0],
+    c = colors[0],
+    s = 100
+    )
+    ax.scatter(finalDF.loc[1, 'pc1']
+    , finalDF.loc[1, 'pc2'],
+    label=targets[1],
+    c = colors[1],
+    s = 100
+    )
+    ax.scatter(finalDF.loc[2, 'pc1']
+    , finalDF.loc[2, 'pc2'],
+    label=targets[2],
+    c = colors[2],
+    s = 100
+    )
+    ax.scatter(finalDF.loc[3, 'pc1']
+    , finalDF.loc[3, 'pc2'],
+    label=targets[3],
+    c = colors[3],
+    s = 100
+    )
+    ax.scatter(finalDF.loc[4, 'pc1']
+    , finalDF.loc[4, 'pc2'],
+    label=targets[4],
+    c = colors[4],
+    s = 100
+    )
+    ax.legend()
+        #counter += 1
+    #ax.legend()
+    #import matplotlib.patches as mpatches
+
+    #colorhandler = mpatches.Patch(color=colors, label=targets)
+    #ax.legend(handles=colorhandler)
+    #ax.legend.key
+    ax.grid()
     #ax.plot(xs,ys)
-    #ax.set_xlabel('Principal Component 1', fontsize = 15)
-    #ax.set_ylabel('Principal Component 2', fontsize = 15)
-    #ax.set_title('2 component PCA', fontsize = 20)
-    #targets = ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
-    #colors = ['r', 'g', 'b']
-    #for target, color in zip(targets,colors):
-    #    indicesToKeep = finalDF['goals'] == target
-    #    ax.scatter(finalDF.loc[indicesToKeep, 'pc1']
-    #           , finalDF.loc[indicesToKeep, 'pc2']
-    #           , c = color
-    #           , s = 50)
-    #ax.legend(targets)
-    #ax.grid()
+"""
+
+    for target, color in zip(targets,colors):
+        indicesToKeep = finalDF['player'] == target
+        ax.scatter(finalDF.loc[indicesToKeep, 'pc1']
+               , finalDF.loc[indicesToKeep, 'pc2']
+              , c = color
+               , s = 100)
+
+    ax.legend(targets)
+    ax.grid()
+    fig.savefig("static/images/plot" + "pro" + ".png")
+    #plt.savefig("static/images/plot" + str(name) + ".png")
+    fig.clf()
     from flask import Response
-    import io
-    output = io.BytesIO()
-    FigureCanvas(fig).print_png(output)
+    #import io
+    #output = io.BytesIO()
+    #FigureCanvas(fig).print_png(output)
     #return Response(output.getvalue(), mimetype='image/png')
 
-    return render_template('propage.html', data=returnstring, data2=returnstring2, data3=returnstring3, data4=returnstring4, data5=returnstring5, data6=returnstring6)
+    return render_template('propage.html', data=returnstring, data2=returnstring2, data3=returnstring3, data4=returnstring4, data5=returnstring5, data6=returnstring6,  url='/static/images/plotpro.png')
 
 
 def create_star_plot(var1, var2, var3,var4,var5, name):
