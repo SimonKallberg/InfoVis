@@ -926,7 +926,7 @@ def create_procomparison():
     sneakyDF = mainDF[mainDF['player name'] == 'Sneakyb4stard']
     kuzonDF_mean = kuzonDF.mean()
     sneakyDF_mean = sneakyDF.mean()
-    newDF = [average_sypical, average_df, average_chausette, kuzonDF_mean, sneakyDF_mean]
+    newDF = [kuzonDF_mean, average_sypical, average_df, average_chausette, sneakyDF_mean]
 
     df_csv_new = pd.concat(newDF, axis=1)
     df_csv_new = df_csv_new.T
@@ -942,14 +942,14 @@ def create_procomparison():
     #df_csv_test.loc[4] = df_csv_test.iloc[1] / df_csv_test.iloc[2]
     #print('TEST: ' +  str(df_csv_test['score']), file=sys.stderr)
 
-    testsneaky = [sneakyDF_mean, kuzonDF_mean]
-    testkuzon = [kuzonDF_mean, average_chausette]
+    #testsneaky = [sneakyDF_mean, kuzonDF_mean]
+    #testkuzon = [kuzonDF_mean, average_chausette]
     #testsneaky = pd.concat(testsneaky1, axis=1)
     #testsneaky = testsneaky.T
     #testsneaky = testsneaky.reset_index()
     #df_csv_test = testsneaky
-    df_csv_test = df_csv_test[df_csv_test != 1]
-    df_csv_test = df_csv_test.dropna(axis='columns')
+    #df_csv_test = df_csv_test[df_csv_test != 1]
+    #df_csv_test = df_csv_test.dropna(axis='columns')
     df_csv_pca = df_csv_test
     df_csv_test = abs(df_csv_test.pct_change(axis='columns'))
     df_csv_test = df_csv_test[df_csv_test < 1]
@@ -957,9 +957,9 @@ def create_procomparison():
 
     #df_csv_test = df_csv_test.mean(numeric_only=True)
     #sneakycomp = testsneaky
-    sneakycomp = pd.concat(testsneaky, axis=1)
-    sneakycomp = sneakycomp.T
-    sneakycomp = sneakycomp.reset_index()
+    #sneakycomp = pd.concat(testsneaky, axis=1)
+    #sneakycomp = sneakycomp.T
+    #sneakycomp = sneakycomp.reset_index()
 
     print('newtestcomp: ' + str(df_csv_test), file=sys.stderr)
     print('newtestcomp1: ' + str(df_csv_test.iloc[1,:].mean()), file=sys.stderr)
@@ -970,10 +970,10 @@ def create_procomparison():
 
     #sneakycomp = sneakycomp.apply(lambda x: x/x.sum(), axis=1)
 
-    sneakycomp = sneakycomp.dropna()
+    #sneakycomp = sneakycomp.dropna()
     #print('testcomp: ' + str(abs(sneakycomp.pct_change())), file=sys.stderr)
 
-    sneakycomparechausette = abs(sneakycomp.pct_change())
+    #sneakycomparechausette = abs(sneakycomp.pct_change())
     #sneakycomparechausette = sneakycomparechausette.apply(pd.to_numeric, errors='coerce')
     #sneakycomparechausette = sneakycomparechausette.dropna(axis='columns')
 
@@ -981,7 +981,7 @@ def create_procomparison():
     #sneakycomparechausette = sneakycomparechausette[sneakycomparechausette != 1]
     #sneakycomparechausette = sneakycomparechausette.astype('float')
     #sneakycomparechausette = sneakycomparechausette.dropna()
-    sneaky_finalmatch = sneakycomparechausette.mean()
+    #sneaky_finalmatch = sneakycomparechausette.mean()
     #sneaky_finalmatch
     #print('testmatch: ' + str(sneaky_finalmatch) + 'shape' + str(sneaky_finalmatch.head()), file=sys.stderr)
     returnstring = "percentage difference(mean) between kuzon and Sypical is: " + str(df_csv_test.iloc[3,:].mean()) #+ "<br>" + "hej"
@@ -990,6 +990,38 @@ def create_procomparison():
     returnstring4 = "percentage difference(median) between Sneaky and Sypical is: " + str(df_csv_test.iloc[4,:].median()) #+ "<br>" + "hej"
     returnstring5 = "percentage difference(variance) between kuzon and Sypical is: " + str(df_csv_test.iloc[3,:].var()) #+ "<br>" + "hej"
     returnstring6 = "percentage difference(variance) between Sneaky and Sypical is: " + str(df_csv_test.iloc[4,:].var()) #+ "<br>" + "hej"
+
+    #plotting mean and variance
+    mean = np.array([df_csv_test.iloc[1,:].mean(), df_csv_test.iloc[2,:].mean(), df_csv_test.iloc[3,:].mean(), df_csv_test.iloc[4,:].mean()])
+    median = np.array([df_csv_test.iloc[1,:].median(), df_csv_test.iloc[2,:].median(), df_csv_test.iloc[3,:].median(), df_csv_test.iloc[4,:].median()])
+    var = np.array([df_csv_test.iloc[1,:].var(), df_csv_test.iloc[2,:].var(), df_csv_test.iloc[3,:].var(), df_csv_test.iloc[4,:].var()])
+
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    import matplotlib.pyplot as plt
+
+    #fig2 = plt.figure(figsize = (8,8))
+    #ax = fig2.add_subplot(1,1,1)
+    #ax.set_xlabel('mean value', fontsize = 15)
+    #ax.set_ylabel('median value', fontsize = 15)
+    #ax.set_title('variance', fontsize = 20)
+    x = ['Sypical', 'Average player', 'Chausette45', 'Sneaky']
+    fig, (ax1, ax2) = plt.subplots(nrows=2)
+
+    ax1.errorbar(x, mean, yerr=var, fmt='o', capsize=4)
+    ax1.set_title('Mean percentage difference from kuzon, with variance included')
+
+    ax2.errorbar(x, median, yerr=var, fmt='o', capsize=4)
+    ax2.set_title('Median percentage difference from kuzon, with variance included')
+    fig.tight_layout(pad=3.0)
+    #plt.errorbar(x, y, e, linestyle='None', marker='^', capsize=3)
+    #plt.set_title('plot of percentage differences with mean, median and variance shown')
+    #plt.set_xlabel('Mean values')
+    #plt.set_ylabel('Median values')
+
+    plt.savefig("static/images/plot" + "pro" + ".png")
+    #plt.savefig("static/images/plot" + str(name) + ".png")
+    plt.clf()
 
     from sklearn.decomposition import PCA
     from sklearn.preprocessing import StandardScaler
@@ -1000,8 +1032,7 @@ def create_procomparison():
     print('PCAtest: ' + str(df_csv_pca), file=sys.stderr)
 
     ## Test for PCA -> plot
-    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-    from matplotlib.figure import Figure
+
 
     x = StandardScaler().fit_transform(x)
 
@@ -1009,7 +1040,7 @@ def create_procomparison():
     pca = PCA(n_components=2)
     principalComponents = pca.fit_transform(x)
     principalDF = pd.DataFrame(data = principalComponents, columns = ['pc1', 'pc2'])
-    targets = ['Sypical', 'Average player', 'Chausette45', 'Kuzon', 'Sneakybastard']
+    targets = ['Kuzon', 'Sypical', 'Average player', 'Chausette45', 'Sneakybastard']
     newddF = pd.DataFrame(targets, columns = ['player'])
     finalDF = pd.concat([principalDF, newddF], axis=1)
 
@@ -1024,7 +1055,7 @@ def create_procomparison():
     ax.set_xlabel('Principal Component 1', fontsize = 15)
     ax.set_ylabel('Principal Component 2', fontsize = 15)
     ax.set_title('PCA over average stats for n=5 players', fontsize = 20)
-    targets = ['Sypical', 'Average player', 'Chausette45', 'Kuzon', 'Sneakybastard']
+    targets = ['Kuzon', 'Sypical', 'Average player', 'Chausette45', 'Sneakybastard']
     colors = ['r', 'g', 'b', 'c', 'k']
     counter = 0
     #for target, color in zip(targets, colors):
@@ -1083,7 +1114,7 @@ def create_procomparison():
 
     ax.legend(targets)
     ax.grid()
-    fig.savefig("static/images/plot" + "pro" + ".png")
+    fig.savefig("static/images/plot" + "pro2" + ".png")
     #plt.savefig("static/images/plot" + str(name) + ".png")
     fig.clf()
     from flask import Response
@@ -1091,9 +1122,8 @@ def create_procomparison():
     #output = io.BytesIO()
     #FigureCanvas(fig).print_png(output)
     #return Response(output.getvalue(), mimetype='image/png')
-
-    return render_template('propage.html', data=returnstring, data2=returnstring2, data3=returnstring3, data4=returnstring4, data5=returnstring5, data6=returnstring6,  url='/static/images/plotpro.png')
-
+    #return render_template('propage.html', data=returnstring, data2=returnstring2, data3=returnstring3, data4=returnstring4, data5=returnstring5, data6=returnstring6,  url='/static/images/plotpro.png')
+    return render_template('propage.html', url='/static/images/plotpro.png', url2='/static/images/plotpro2.png')
 
 def create_star_plot(var1, var2, var3,var4,var5, name):
     df_csv = pd.read_csv('./matches_csv/testmatch0.csv', sep=';') # creating a sample dataframe0
