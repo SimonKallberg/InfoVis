@@ -56,7 +56,7 @@ def own_star_plots():
         create_star_plot('shots', 'shooting percentage', 'bpm', "percentage supersonic speed", "avg speed", "def")
         create_star_plot('saves', 'score', 'percentage defensive third', "percentage behind ball", "assists", "def2")
         return redirect(url_for('own_star_plots'))
-    return render_template('index_starplot.html', url='/static/images/plotdef.png', url2='/static/images/plotdef2.png')
+    return render_template('index_starplot_own.html', url='/static/images/plotdef.png', url2='/static/images/plotdef2.png')
 
 
 

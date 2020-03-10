@@ -294,40 +294,40 @@ margin: 10px;
   align-items: center;
 }
 .selects {
+  height: 150px;
   position: relative;
   width: 100%;
   flex-direction: row;
   justify-content: center;
 }
 
-#boxstat2 {
+#boxstat1 {
   position: absolute;
-  top: 200px;
-  right: 100px;
+  top: 50px;
 }
 
 #boxstat2 {
   position: absolute;
-  top: 200px;
-  right: 100px;
+  top: 300px;
+  right: 50px;
 }
 
 #boxstat3 {
   position: absolute;
-  top: 200px;
-  right: 100px;
+  top: 550px;
+  right: 150px;
 }
 
 #boxstat4 {
   position: absolute;
-  top: 200px;
-  right: 100px;
+  top: 550px;
+  left: 150px;
 }
 
-#boxstat2 {
+#boxstat5 {
   position: absolute;
-  top: 200px;
-  right: 100px;
+  top: 300px;
+  left: 50px;
 }
 
 .upperBox {
