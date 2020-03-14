@@ -36,7 +36,7 @@
   <div class="starcontainer">
     <div class="row">
         <div class="col-md-6">
-          <form action="{{url_for('update_star_plot')}}" method="post" class="starForm" onsubmit="test();">
+          <form action="{{url_for('update_star_plot')}}" method="post" class="starForm">
             <div class="selects">
               <div id="boxstat1">
               <h4>Stat 1: </h4>
@@ -45,14 +45,28 @@
                 <option value="shots">Shots</option>
                 <option value="assists">Assists</option>
                 <option value="shooting percentage">Shooting percentage</option>
+                <option value="saves">Saves</option>
+                <option value="bpm">Boost used per minute</option>
+                <option value="avg speed">Average speed</option>
+                <option value="score">Score</option>
+                <option value="demos inflicted">Demos inflicted</option>
+                <option value="demos taken">Demos taken</option>
               </select>
               </div>
 
               <div id="boxstat2">
               <h4>Stat 2: </h4>
               <select id="stat2" name='Defensive' class="starSelect" onchange="this.form.submit();checkstat2();return false;">
-                  <option value="saves">Saves</option>
-                  <option value="bpm">Boost used per minute</option>
+                <option value="goals">Goals</option>
+                <option value="shots">Shots</option>
+                <option value="assists">Assists</option>
+                <option value="shooting percentage">Shooting percentage</option>
+                <option value="saves">Saves</option>
+                <option value="bpm">Boost used per minute</option>
+                <option value="avg speed">Average speed</option>
+                <option value="score">Score</option>
+                <option value="demos inflicted">Demos inflicted</option>
+                <option value="demos taken">Demos taken</option>
               </select>
               </div>
 
@@ -64,6 +78,11 @@
                 <option value="percentage neutral third">% Neutral third</option>
                 <option value="percentage offensive third">% Offensive third</option>
                 <option value="percentage behind ball">% behind the ball</option>
+                <option value="goals">Goals</option>
+                <option value="shots">Shots</option>
+                <option value="assists">Assists</option>
+                <option value="shooting percentage">Shooting percentage</option>
+                <option value="saves">Saves</option>
               </select>
               </div>
 
@@ -74,14 +93,28 @@
                 <option value="demos inflicted">Demos inflicted</option>
                 <option value="demos taken">Demos taken</option>
                 <option value="count stolen big pads">Stolen big pads</option>
+                <option value="goals">Goals</option>
+                <option value="shots">Shots</option>
+                <option value="assists">Assists</option>
+                <option value="shooting percentage">Shooting percentage</option>
+                <option value="saves">Saves</option>
+                <option value="bpm">Boost used per minute</option>
               </select>
             </div>
             <div id="boxstat5">
               <h4>Stat 5: </h4>
               <select id="stat5" name="Speed" class="starSelect" onchange="checkstat5();this.form.submit();">
+                <option value="goals">Goals</option>
+                <option value="shots">Shots</option>
+                <option value="assists">Assists</option>
+                <option value="shooting percentage">Shooting percentage</option>
+                <option value="saves">Saves</option>
+                <option value="bpm">Boost used per minute</option>
+                <option value="demos inflicted">Demos inflicted</option>
+                <option value="demos taken">Demos taken</option>
                 <option value="percentage supersonic speed">% Supersonic speed</option>
                 <option value="avg speed">Average speed</option>
-                <option value="score" selected>Score</option>
+                <option value="score">Score</option>
               </select>
             </div>
               <!---<input type="submit" value="Update" class = "inputStar">--->

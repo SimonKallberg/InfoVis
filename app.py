@@ -17,6 +17,7 @@ from math import pi
 import math
 
 import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from math import pi
 import seaborn as sns
@@ -908,6 +909,7 @@ def variables_for_star():
     if var5 is None:
         var5 = 'percentage supersonic speed'
     create_star_plot(var1, var2, var3, var4, var5, "solo")
+
 def create_procomparison():
     average_chausette = pd.read_csv('./matches_csv/Chausette45.csv', sep=';')
     print("first avg" + '\n' + str(average_chausette), file=sys.stderr)
